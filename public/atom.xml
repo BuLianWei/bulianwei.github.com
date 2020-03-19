@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Abu</title>
+  
+  <subtitle>Abu</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://bulianwei.github.io/"/>
+  <updated>2020-03-18T11:52:16.000Z</updated>
+  <id>https://bulianwei.github.io/</id>
+  
+  <author>
+    <name>Abu</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>大数据面试题</title>
+    <link href="https://bulianwei.github.io/2020/01/15/da-shu-ju-mian-shi-ti/"/>
+    <id>https://bulianwei.github.io/2020/01/15/da-shu-ju-mian-shi-ti/</id>
+    <published>2020-01-15T08:42:00.000Z</published>
+    <updated>2020-03-18T11:52:16.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;大数据面试题&quot;&gt;&lt;a href=&quot;#大数据面试题&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="大数据面试题" scheme="https://bulianwei.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    
+    
+      <category term="大数据面试题" scheme="https://bulianwei.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>手撕Spark之WordCount RDD执行流程</title>
+    <link href="https://bulianwei.github.io/2019/12/18/shou-si-spark-zhi-wordcount-rdd-zhi-xing-liu-cheng/"/>
+    <id>https://bulianwei.github.io/2019/12/18/shou-si-spark-zhi-wordcount-rdd-zhi-xing-liu-cheng/</id>
+    <published>2019-12-18T02:03:14.000Z</published>
+    <updated>2020-03-18T11:52:16.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;手撕Spark之WordCount-RDD执行流程&quot;&gt;&lt;a href=&quot;#手撕Spark之WordCount-RDD执行流程&quot; class=&quot;headerlink&quot; title=&quot;手撕Spark之WordCount
+        
+      
+    
+    </summary>
+    
+      <category term="Spark" scheme="https://bulianwei.github.io/categories/Spark/"/>
+    
+    
+      <category term="Spark" scheme="https://bulianwei.github.io/tags/Spark/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://bulianwei.github.io/2018/09/12/hello-world/"/>
+    <id>https://bulianwei.github.io/2018/09/12/hello-world/</id>
+    <published>2018-09-12T14:25:00.000Z</published>
+    <updated>2020-03-19T04:51:26.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="前端" scheme="https://bulianwei.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Hexo" scheme="https://bulianwei.github.io/tags/Hexo/"/>
+    
+  </entry>
+  
+</feed>
