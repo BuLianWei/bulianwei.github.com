@@ -2,7 +2,7 @@
 title:  个人简历
 date: 2019-12-25 11:50:00
 type: about
-layout: about
+layout: post
 password: ni
 message: 请输入访问本文章的密码
 ---

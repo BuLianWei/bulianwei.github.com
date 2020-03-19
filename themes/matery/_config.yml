@@ -31,6 +31,11 @@ menu:
 personResume:
     enable: true  #是否开启个人简历
 
+#分享
+share:
+    enable: false
+
+
 # 站点运行开始时间.
 time:
   enable: false
