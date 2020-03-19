@@ -3304,7 +3304,7 @@ table span.badge {
 }
 
 .row .col.s8 {
-    /*width: 66.6666666667%;*/
+    width: 66.6666666667%;
     margin-left: auto;
     left: auto;
     right: auto
@@ -3533,7 +3533,7 @@ table span.badge {
     }
 
     .row .col.m8 {
-        /*width: 66.6666666667%;*/
+        width: 66.6666666667%;
         margin-left: auto;
         left: auto;
         right: auto
@@ -3763,7 +3763,7 @@ table span.badge {
     }
 
     .row .col.l8 {
-        /*width: 66.6666666667%;*/
+        width: 66.6666666667%;
         margin-left: auto;
         left: auto;
         right: auto
