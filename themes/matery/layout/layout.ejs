@@ -26,5 +26,18 @@
     <script async src="<%- theme.libs.js.busuanzi %>"></script>
 <% } %>
 
+
+<!--添加彩带-->
+
+ <% if (theme.ribbon_dynamic.enable) { %>
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="<%- theme.libs.js.ribbon_dynamic %>"><\/script>');
+            }
+            </script>
+        <% } %>
+
+        
 </body>
 </html>
