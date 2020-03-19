@@ -11,7 +11,7 @@ Hadoop配置：
 3.mapred-site.xml:  mapreduce.framework.name
 4.hdfs-site.xml:  dfs.replication
 5.yarn-site.xml:   yarn.resourcemanager.hostname  yarn.nodemanager.aux-services    
-slaves：自动化脚本使用的配置文件
+slaves：自动化脚本使用的配置文件
 修改Linux启动等待时间  vi /etc/fstab
 mkdir -p  /aa/bb/cc      可以直接建立aa下的bb下的cc  创建层级文件
 挂载光驱：mount -t iso9660 -o ro	 /dev/cdrom  /mnt/cdrom 
