@@ -143,7 +143,7 @@
 - git push  origin :master2
   推送一个空分支到origin远端库分支master2
 
-![QQ20200318-211942@2x](Github.assets/QQ20200318-211942@2x.png)
+![QQ20200318-211942@2x](Git&GitHub.assets/QQ20200318-211942@2x.png)
 
 
 
