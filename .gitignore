@@ -1,0 +1,16 @@
+.DS_Store
+.deploy_git/
+.travis.yml
+_config.yml
+node_modules/*
+package-lock.json
+package.json
+scaffolds/*
+themes/*
+
+Thumbs.db
+db.json
+*.log
+public/
+.deploy*/
+source/about/index.md

@@ -17,6 +17,18 @@
 - git add -A  (git add --all)
   提交所有变化，是`git add -u `和`git add . `两个功能的合集（git add --all的缩写）
 
+### update-index
+
+- git update-index --force-remove filename
+
+  将文件从追踪中删除，本地不会删除
+
+### ls-files
+
+- git ls-files 
+
+  列出追踪的所有文件
+
 ### rm
 
 - git rm filename
