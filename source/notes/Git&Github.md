@@ -33,6 +33,10 @@
 
 - git rm filename
   从工作区和索引中删除文件
+  
+- git rm --cached filename 
+  
+  保留本地文件不在跟踪文件
 
 ### commit
 将变化提交到staging area（暂存区）
