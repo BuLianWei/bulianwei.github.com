@@ -51,6 +51,10 @@
 - git reset --hard HEAD^
   回到上次提交的状态，撤销掉最近一次提交
   
+### restore
+- git restore filename 
+  丢弃工作区的改动
+
 ### log
 查看git 提交日志
 
