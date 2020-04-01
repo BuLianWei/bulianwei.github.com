@@ -10,15 +10,18 @@
 
 - git  add filename 	
   添加file 到working directory
-
 - git add . 
   提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件
-
 - git add -u   (git add --update)
   提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)
-  
 - git add -A  (git add --all)
   提交所有变化，是`git add -u `和`git add . `两个功能的合集（git add --all的缩写）
+
+### rm
+
+- git rm filename
+  从工作区和索引中删除文件
+
 ### commit
 将变化提交到staging area（暂存区）
 
