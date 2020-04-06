@@ -8,7 +8,7 @@ tags: Go
 
 # Go插件工具安装问题
 
-在Mac上在学习使用Go或者安装其他带有Go依赖的安装包时（比如git-lfs）可能会遇到![QQ20200406-095236@2x](go.assets/QQ20200406-095236@2x.png)
+在Mac上在学习使用Go或者安装其他带有Go依赖的安装包时（比如git-lfs）可能会遇到Go插件工具安装问题![QQ20200406-095236@2x](Go插件工具安装问题.assets/QQ20200406-095236@2x-6150876.png)
 
 下面我们就来解决一下这个问题（网上也有相关使用代理的情况，这里不再说明）
 
@@ -24,11 +24,11 @@ mac 下的包管理工具brew 可以方便的安装工具包或者相应的软�
 
 
 
-登上[Homebrew](https://brew.sh/)的官网，找到Packages，![QQ20200406-101042@2x](go.assets/QQ20200406-101042@2x.png)
+登上[Homebrew](https://brew.sh/)的官网，找到Packages，![QQ20200406-101042@2x](Go插件工具安装问题.assets/QQ20200406-101042@2x-6150888.png)
 
 点击[formulae.brew.sh](https://formulae.brew.sh/)，选择[Browse all macOS formulae](https://formulae.brew.sh/formula/)
 
-![QQ20200406-101332@2x](go.assets/QQ20200406-101332@2x.png)
+![QQ20200406-101332@2x](Go插件工具安装问题.assets/QQ20200406-101332@2x-6150899.png)
 
 在搜索框搜索git-lfs，在页面找到[Formula code](https://github.com/Homebrew/homebrew-core/blob/master/Formula/git-lfs.rb) ，查看git-lfs在GitHub上的脚本源码。
 
