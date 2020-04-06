@@ -20,13 +20,13 @@ mac 下的包管理工具brew 可以方便的安装工具包或者相应的软�
 
 如果想直接解决可以直接跳转到[解决方案](#解决方案)
 
-在网上搜索时发现https://github.com/golang/tools 是https://go.googlesource.com/tools.git的一个镜像。这样我们只要修改brew下载git-lfs的脚本，将https://go.googlesource.com/tools.git替换成https://github.com/golang/tools 应该就可以解决我们的问题。
+在网上搜索时发现 https://github.com/golang/tools 是 https://go.googlesource.com/tools.git 的一个镜像。这样我们只要修改brew下载git-lfs的脚本，将 https://go.googlesource.com/tools.git 替换成 https://github.com/golang/tools 应该就可以解决我们的问题。
 
 
 
-登上[Homebrew](https://brew.sh/)的官网，找到Packages，![QQ20200406-101042@2x](Go插件工具安装问题.assets/QQ20200406-101042@2x-6150888.png)
+登录 [Homebrew](https://brew.sh/) 的官网，找到Packages，![QQ20200406-101042@2x](Go插件工具安装问题.assets/QQ20200406-101042@2x-6150888.png)
 
-点击[formulae.brew.sh](https://formulae.brew.sh/)，选择[Browse all macOS formulae](https://formulae.brew.sh/formula/)
+点击 [formulae.brew.sh](https://formulae.brew.sh/) ，选择 [Browse all macOS formulae](https://formulae.brew.sh/formula/)
 
 ![QQ20200406-101332@2x](Go插件工具安装问题.assets/QQ20200406-101332@2x-6150899.png)
 
@@ -87,7 +87,7 @@ class GitLfs < Formula
 end
 ```
 
-当前代码中并没有相关https://go.googlesource.com/tools.git的信息，因为当前是Go的tools，所以再去查看Go的安装脚本（git-lfs的脚本中依赖Go和Ruby，所以只有可能是这两个里面有问题，因为tools是Go相关的的工具，所以首先我们可以查看Go的安装脚本）。这是Go语言brew的安装脚本https://github.com/Homebrew/homebrew-core/blob/master/Formula/go.rb
+当前代码中并没有相关 https://go.googlesource.com/tools.git 的信息，因为当前是Go的tools，所以再去查看Go的安装脚本（git-lfs的脚本中依赖Go和Ruby，所以只有可能是这两个里面有问题，因为tools是Go相关的的工具，所以首先我们可以查看Go的安装脚本）。这是Go语言brew的安装脚本 https://github.com/Homebrew/homebrew-core/blob/master/Formula/go.rb
 
 ```ruby
 class Go < Formula
@@ -180,7 +180,7 @@ class Go < Formula
 end
 ```
 
-安装脚本里面有请求https://go.googlesource.com/tools.git地址的信息，我们可以将这块的替换掉应该就可以。
+安装脚本里面有请求 https://go.googlesource.com/tools.git 地址的信息，我们可以将这块的替换掉应该就可以。
 
 ## 解决方案
 
@@ -196,7 +196,7 @@ brew在本地管理安装脚本的文件夹为
 /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula
 ```
 
-这里我们只需要修改`/usr/local/Homebrew/Library/Taps`下Go的安装脚本，将https://go.googlesource.com/tools.git替换成https://github.com/golang/tools 即可。
+这里我们只需要修改`/usr/local/Homebrew/Library/Taps`下Go的安装脚本，将 https://go.googlesource.com/tools.git 替换成 https://github.com/golang/tools 即可。
 
 ```ruby
 class Go < Formula
