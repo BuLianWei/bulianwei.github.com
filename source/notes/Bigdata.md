@@ -39,3 +39,7 @@ conf.set("fs.defaultFS","hdfs://hadoop01:9000/") #程序在设置在yarn上运�
 程序里面systemout的日子存在于hadoop里面的logs的userlogs里面对应job_id下的container里的syslog里面
 namenode在刚启动时只包含block的数量和blockid不知道块所在datanode，要等待datanode向他汇报后才会在namenode元数据中补全文件块的位置信息，只有在namenode找到999.8%的块的位置信息才会退出安全模式正常对外提供服务。
 ~~~
+
+![mapreduce&yarn的工作机制----吸星大法](Bigdata.assets/mapreduce&yarn的工作机制----吸星大法-5821159.png)
+
+![mapreduce原理全剖析--段氏六脉神剑](Bigdata.assets/mapreduce原理全剖析--段氏六脉神剑.png)
