@@ -21,6 +21,46 @@ float16，float32
 
 #### 数组
 
+数组类型声明赋值方式
+
+- 1
+
+  ```
+  var arr [3]int
+  
+  arr[0] = 1
+  arr[1] = 2
+  arr[2] = 3
+  
+  ```
+
+- 2
+  ```
+  var arr =[3]int{1,2,3}
+  ```
+
+- 3
+
+  ```
+  var arr =[...]int{1,2,3}
+  ```
+
+- 4 
+
+  ```
+   arr :=[3]int{1,2,3}
+  ```
+
+- 5 
+
+  ```
+   arr :=[...]int{1,2,3}
+  ```
+
+
+
+不管是使用...代替size还是有具体size 在声明赋值时必须有size
+
 ### 引用类型
 
 #### slice
@@ -442,16 +482,19 @@ type name interface{
 利用接口来判断类型
 
 - 1
+  ```go
   instance := 接口对象.(实际类型)   //不安全，会panic（）
   instance,err := 接口对象.(实际类型)	//安全
+  ```
 - 2
+  ```go
   switch instance := 接口对象.(type) {
     case 实际类型：
       xxx
     case 实际类型：
       xxxx
   }
-
+  ```
 
 
 ## type 关键字
@@ -741,6 +784,8 @@ fallthrough   在switch 语句中进行穿透，链接两个case
 
 
 指针
+
+
 
 
 
