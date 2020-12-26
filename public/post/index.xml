@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Abiu的博客</title>
+    <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/</link>
+    <description>Recent content in Posts on Abiu的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 25 Dec 2020 16:24:58 +0800</lastBuildDate>
+    
+	<atom:link href="https://github.com/BuLianWei/bulianwei.github.io.git/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kubernetes安装</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/Kubernetes%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Fri, 25 Dec 2020 16:24:58 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/Kubernetes%E5%AE%89%E8%A3%85/</guid>
+      <description>Kubernetes 安装 本次安装环境 Centos 7 本次使用阿里镜像源 https://developer.aliyun.com/mirror 准备 Yum repo 镜像库（master，node） 从阿里镜像源找到 kubernetes 从目录里面找到 yum repo 地址 https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/ 从目录里面找到 key 验证地址 https://mirrors.aliyun.com/kubernetes/yum/doc/ 右键复制https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key</description>
+    </item>
+    
+    <item>
+      <title>Docekr安装</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/Docekr%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Fri, 25 Dec 2020 08:22:55 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/Docekr%E5%AE%89%E8%A3%85/</guid>
+      <description>安装Docker 本次安装在 CentOS 7上使用 Yum 安装 本次使用阿里镜像源安装 阿里镜像地址 https://developer.aliyun.com/mirror/ 准备环境 查找 docker-ce repo 库 在目录https://mirrors.aliyun.com/docker-ce/linux/centos/下找到docker-ce.repo 右键复制地址链接 下载 docker-ce repo 库 wget -O /etc/yum.repos.d/docker-ce.repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo 或 curl -o /etc/yum.repos.d/docker-ce.repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</description>
+    </item>
+    
+    <item>
+      <title>Trouble</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/Trouble/</link>
+      <pubDate>Mon, 16 Nov 2020 22:12:47 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/Trouble/</guid>
+      <description>Could not transfer artifact org.apache.flink:flink-runtime_2.11:jar:1.10.0 from/to central (https://repo.maven.apache.org/maven2): GET request of: org/apache/flink/flink-runtime_2.11/1.10.0/flink-runtime_2.11-1.10.0.jar from central failed: Premature end of Content-Length delimited message body (expected: 12,008,735; received: 2,379,621) -&amp;gt; [Help 1] 由于之前从网上加载依赖包没有加载完全，导致本地库中的包不完全，所以没有办法重新加载依赖。可以直接找到相应的包目录将目录删除，然后从新下载。 本文中直接删除.m2/repository/org/apache/flink/fli</description>
+    </item>
+    
+    <item>
+      <title>数仓</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/%E6%95%B0%E4%BB%93/</link>
+      <pubDate>Thu, 17 Sep 2020 16:11:13 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/%E6%95%B0%E4%BB%93/</guid>
+      <description>数仓 数仓定义 面向主题、集成、非易失、随时间变化，用于支持管理者决策 数据模型 数据模型就是数据组织和存储的方式 ER实体关系模型 为数据分析决策服务，但不能用于分析决策 特点 需要全面了解企业业务和数据 实施周期长 对建模人员的要求高 建模步骤阶段 高层模型： 一个高度抽象的模型，描述主要的主题以及主</description>
+    </item>
+    
+    <item>
+      <title>HBase</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/HBase/</link>
+      <pubDate>Wed, 19 Aug 2020 20:51:45 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/HBase/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flume</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/Flume/</link>
+      <pubDate>Wed, 19 Aug 2020 20:51:26 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/Flume/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kafka</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/Kafka/</link>
+      <pubDate>Wed, 19 Aug 2020 20:51:17 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/Kafka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spark</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/Spark/</link>
+      <pubDate>Wed, 19 Aug 2020 20:50:50 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/Spark/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flink</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/Flink/</link>
+      <pubDate>Wed, 19 Aug 2020 20:50:34 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/Flink/</guid>
+      <description>Flink 部署 On Yarn yarn-session 开启session yarn-session.sh -jm 1024m -tm 4096m 在session上提交作业 flink run -m yarn-cluster -p 4 -yjm 1024m -ytm 4096m ./examples/batch/WordCount.jar 关闭session echo &amp;ldquo;stop&amp;rdquo; | ./bin/yarn-session.sh -id -D 使用-D将要设置的参数进行设置（-Dtaskmanager.memory.network.min=536346624） -d,&amp;ndash;detached 开启分离模式（session启动后clie</description>
+    </item>
+    
+    <item>
+      <title>Hadoop</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/Hadoop/</link>
+      <pubDate>Wed, 19 Aug 2020 20:50:20 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/Hadoop/</guid>
+      <description>Hadoop HDFS 读 block 文件上传前需要分块，这个块就是block，一般为128MB， packet packet是第二大的单位，它是client端向DataNode，或DataNode的PipLine之间传数据的基本单位，默认64KB。 chunk chunk是最小的单位，它是client向DataNode，或DataN</description>
+    </item>
+    
+    <item>
+      <title>Hive</title>
+      <link>https://github.com/BuLianWei/bulianwei.github.io.git/post/Hive/</link>
+      <pubDate>Wed, 19 Aug 2020 20:37:43 +0800</pubDate>
+      
+      <guid>https://github.com/BuLianWei/bulianwei.github.io.git/post/Hive/</guid>
+      <description>Hive Hive 不存储数据其实就是将hdfs存储系统上的文件映射成具有结构的表 数据导入 使用load命令 LOAD DATA [LOCAL] INPATH &amp;#39;filepath&amp;#39; [OVERWRITE] INTO TABLE tablename [PARTITION (partcol1=val1,partcol2=val2 ...)] load data inpath &amp;#39;/data/test.txt&amp;#39; overwrite into table tablename partition (day_id=&amp;#39;20200801&amp;#39;) //将hdfs上的data目录下的test.txt文件用覆盖的方式导入到tablename表的day_id为20200801的分区下 load data local inpath &amp;#39;/root/test.txt&amp;#39; overwrite into</description>
+    </item>
+    
+  </channel>
+</rss>

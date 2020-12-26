@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Go插件工具安装问题 | Abiu的博客</title>
+    <meta property="og:title" content="Go插件工具安装问题 - Abiu的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-12-26T09:06:15&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-12-26T09:06:15&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Go插件工具安装问题">
+        
+    <meta name="author" content="Abiu">
+    <meta property="og:url" content="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/normalize.css'>
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4031353640611810",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/douban.css'>
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://github.com/BuLianWei/bulianwei.github.io.git">
+                        Abiu的博客
+                    </a>
+                
+                
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://github.com/BuLianWei/bulianwei.github.io.git">首页</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/" title="笔记">笔记</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/post/" title="归档">归档</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">Go插件工具安装问题</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月26日
+        </date>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="go插件工具安装问题">Go插件工具安装问题</h1>
+<p>在Mac上在学习使用Go或者安装其他带有Go依赖的安装包时（比如git-lfs）可能会遇到Go插件工具安装问题<img src="Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98.assets/QQ20200406-095236@2x-6150876.png" alt="QQ20200406-095236@2x"></p>
+<p>下面我们就来解决一下这个问题（网上也有相关使用代理的情况，这里不再说明）</p>
+<h2 id="引发原因">引发原因</h2>
+<p>mac 下的包管理工具brew 可以方便的安装工具包或者相应的软件应用，当使用brew 安装git-lfs（git上传大文件的工具）时，因为依赖Go 语言工具，所以在安装时会报错。下面就brew install git-lfs 时的问题来给出解决方案。</p>
+<h2 id="过程思路">过程思路</h2>
+<p>如果想直接解决可以直接跳转到<a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">解决方案</a></p>
+<p>在网上搜索时发现 <a href="https://github.com/golang/tools">https://github.com/golang/tools</a> 是 <a href="https://go.googlesource.com/tools.git">https://go.googlesource.com/tools.git</a> 的一个镜像。这样我们只要修改brew下载git-lfs的脚本，将 <a href="https://go.googlesource.com/tools.git">https://go.googlesource.com/tools.git</a> 替换成 <a href="https://github.com/golang/tools">https://github.com/golang/tools</a> 应该就可以解决我们的问题。</p>
+<p>登录 <a href="https://brew.sh/">Homebrew</a> 的官网，找到Packages，<img src="Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98.assets/QQ20200406-101042@2x-6150888.png" alt="QQ20200406-101042@2x"></p>
+<p>点击 <a href="https://formulae.brew.sh/">formulae.brew.sh</a> ，选择 <a href="https://formulae.brew.sh/formula/">Browse all macOS formulae</a></p>
+<p><img src="Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98.assets/QQ20200406-101332@2x-6150899.png" alt="QQ20200406-101332@2x"></p>
+<p>在搜索框搜索git-lfs，在页面找到<a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/git-lfs.rb">Formula code</a> ，查看git-lfs在GitHub上的脚本源码。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GitLfs</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">Formula</span>
+  desc <span style="color:#e6db74">&#34;Git extension for versioning large files&#34;</span>
+  homepage <span style="color:#e6db74">&#34;https://github.com/git-lfs/git-lfs&#34;</span>
+  url <span style="color:#e6db74">&#34;https://github.com/git-lfs/git-lfs/releases/download/v2.10.0/git-lfs-v2.10.0.tar.gz&#34;</span>
+  sha256 <span style="color:#e6db74">&#34;07fd5c57a1039d5717dc192affbe3268ec2fd03accdca462cb504c0b4194cd23&#34;</span>
+
+  bottle <span style="color:#66d9ef">do</span>
+    cellar <span style="color:#e6db74">:any_skip_relocation</span>
+    sha256 <span style="color:#e6db74">&#34;8fec7d8b8ad7c3332bfa1862dd8615712dab8315a9128ed8b5609fa1659431e7&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:catalina</span>
+    sha256 <span style="color:#e6db74">&#34;3c5bcef656ca742c6697b952c9f7c483c1fad046f52136dbe9ee0f16f44835c4&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:mojave</span>
+    sha256 <span style="color:#e6db74">&#34;ed0d8f1271d9d81a2c22622023c260ef040f2172e75357893ef54134bc6eedff&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:high_sierra</span>
+  <span style="color:#66d9ef">end</span>
+
+  depends_on <span style="color:#e6db74">&#34;go&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:build</span>
+  depends_on <span style="color:#e6db74">&#34;ruby&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:build</span>
+
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">install</span>
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GIT_LFS_SHA&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;VERSION&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> version
+
+    (buildpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;src/github.com/git-lfs/git-lfs&#34;</span>)<span style="color:#f92672">.</span>install buildpath<span style="color:#f92672">.</span>children
+    cd <span style="color:#e6db74">&#34;src/github.com/git-lfs/git-lfs&#34;</span> <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GEM_HOME&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;.gem_home&#34;</span>
+      system <span style="color:#e6db74">&#34;gem&#34;</span>, <span style="color:#e6db74">&#34;install&#34;</span>, <span style="color:#e6db74">&#34;ronn&#34;</span>
+
+      system <span style="color:#e6db74">&#34;make&#34;</span>, <span style="color:#e6db74">&#34;vendor&#34;</span>
+      system <span style="color:#e6db74">&#34;make&#34;</span>
+      system <span style="color:#e6db74">&#34;make&#34;</span>, <span style="color:#e6db74">&#34;man&#34;</span>, <span style="color:#e6db74">&#34;RONN=.gem_home/bin/ronn&#34;</span>
+
+      bin<span style="color:#f92672">.</span>install <span style="color:#e6db74">&#34;bin/git-lfs&#34;</span>
+      man1<span style="color:#f92672">.</span>install <span style="color:#66d9ef">Dir</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;man/*.1&#34;</span><span style="color:#f92672">]</span>
+      man5<span style="color:#f92672">.</span>install <span style="color:#66d9ef">Dir</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;man/*.5&#34;</span><span style="color:#f92672">]</span>
+      doc<span style="color:#f92672">.</span>install <span style="color:#66d9ef">Dir</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;man/*.html&#34;</span><span style="color:#f92672">]</span>
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
+
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">caveats</span>
+    <span style="color:#f92672">&lt;&lt;~</span><span style="color:#66d9ef">EOS</span>
+      <span style="color:#66d9ef">Update</span> your git config to finish <span style="color:#e6db74">installation</span>:
+        <span style="color:#75715e"># Update global git config</span>
+        <span style="color:#960050;background-color:#1e0010">$</span> git lfs install
+        <span style="color:#75715e"># Update system git config</span>
+        <span style="color:#960050;background-color:#1e0010">$</span> git lfs install <span style="color:#f92672">--</span>system
+    <span style="color:#66d9ef">EOS</span>
+  <span style="color:#66d9ef">end</span>
+
+  test <span style="color:#66d9ef">do</span>
+    system <span style="color:#e6db74">&#34;git&#34;</span>, <span style="color:#e6db74">&#34;init&#34;</span>
+    system <span style="color:#e6db74">&#34;git&#34;</span>, <span style="color:#e6db74">&#34;lfs&#34;</span>, <span style="color:#e6db74">&#34;track&#34;</span>, <span style="color:#e6db74">&#34;test&#34;</span>
+    assert_match(<span style="color:#e6db74">/^test filter=lfs/</span>, <span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>read(<span style="color:#e6db74">&#34;.gitattributes&#34;</span>))
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>当前代码中并没有相关 <a href="https://go.googlesource.com/tools.git">https://go.googlesource.com/tools.git</a> 的信息，因为当前是Go的tools，所以再去查看Go的安装脚本（git-lfs的脚本中依赖Go和Ruby，所以只有可能是这两个里面有问题，因为tools是Go相关的的工具，所以首先我们可以查看Go的安装脚本）。这是Go语言brew的安装脚本 <a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/go.rb">https://github.com/Homebrew/homebrew-core/blob/master/Formula/go.rb</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Go</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">Formula</span>
+  desc <span style="color:#e6db74">&#34;Open source programming language to build simple/reliable/efficient software&#34;</span>
+  homepage <span style="color:#e6db74">&#34;https://golang.org&#34;</span>
+
+  stable <span style="color:#66d9ef">do</span>
+    url <span style="color:#e6db74">&#34;https://dl.google.com/go/go1.14.1.src.tar.gz&#34;</span>
+    mirror <span style="color:#e6db74">&#34;https://fossies.org/linux/misc/go1.14.1.src.tar.gz&#34;</span>
+    sha256 <span style="color:#e6db74">&#34;2ad2572115b0d1b4cb4c138e6b3a31cee6294cb48af75ee86bec3dca04507676&#34;</span>
+
+    go_version <span style="color:#f92672">=</span> version<span style="color:#f92672">.</span>to_s<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;.&#34;</span>)<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">1</span><span style="color:#f92672">].</span>join(<span style="color:#e6db74">&#34;.&#34;</span>)
+    resource <span style="color:#e6db74">&#34;gotools&#34;</span> <span style="color:#66d9ef">do</span>
+      url <span style="color:#e6db74">&#34;https://go.googlesource.com/tools.git&#34;</span>,
+          <span style="color:#e6db74">:branch</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;release-branch.go</span><span style="color:#e6db74">#{</span>go_version<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
+
+  bottle <span style="color:#66d9ef">do</span>
+    sha256 <span style="color:#e6db74">&#34;36fdd54a9307ba19cc69425586e2d63188f2f2b7f541ab9fd2ef3447e376329f&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:catalina</span>
+    sha256 <span style="color:#e6db74">&#34;bab387fda3e4683943bd7b9b9208141502d6a2cc42c4b21137effaec9f208e1c&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:mojave</span>
+    sha256 <span style="color:#e6db74">&#34;ffb583abeb5263269281532f45a70a074ae0affe6edecb13442024b70bf13b04&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:high_sierra</span>
+  <span style="color:#66d9ef">end</span>
+
+  head <span style="color:#66d9ef">do</span>
+    url <span style="color:#e6db74">&#34;https://go.googlesource.com/go.git&#34;</span>
+
+    resource <span style="color:#e6db74">&#34;gotools&#34;</span> <span style="color:#66d9ef">do</span>
+      url <span style="color:#e6db74">&#34;https://go.googlesource.com/tools.git&#34;</span>
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
+
+  depends_on <span style="color:#e6db74">:macos</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:el_capitan</span>
+
+  <span style="color:#75715e"># Don&#39;t update this unless this version cannot bootstrap the new version.</span>
+  resource <span style="color:#e6db74">&#34;gobootstrap&#34;</span> <span style="color:#66d9ef">do</span>
+    url <span style="color:#e6db74">&#34;https://storage.googleapis.com/golang/go1.7.darwin-amd64.tar.gz&#34;</span>
+    sha256 <span style="color:#e6db74">&#34;51d905e0b43b3d0ed41aaf23e19001ab4bc3f96c3ca134b48f7892485fc52961&#34;</span>
+  <span style="color:#66d9ef">end</span>
+
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">install</span>
+    (buildpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;gobootstrap&#34;</span>)<span style="color:#f92672">.</span>install resource(<span style="color:#e6db74">&#34;gobootstrap&#34;</span>)
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOROOT_BOOTSTRAP&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> buildpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;gobootstrap&#34;</span>
+
+    cd <span style="color:#e6db74">&#34;src&#34;</span> <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOROOT_FINAL&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> libexec
+      <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOOS&#34;</span><span style="color:#f92672">]</span>         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;darwin&#34;</span>
+      system <span style="color:#e6db74">&#34;./make.bash&#34;</span>, <span style="color:#e6db74">&#34;--no-clean&#34;</span>
+    <span style="color:#66d9ef">end</span>
+
+    (buildpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;pkg/obj&#34;</span>)<span style="color:#f92672">.</span>rmtree
+    rm_rf <span style="color:#e6db74">&#34;gobootstrap&#34;</span> <span style="color:#75715e"># Bootstrap not required beyond compile.</span>
+    libexec<span style="color:#f92672">.</span>install <span style="color:#66d9ef">Dir</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;*&#34;</span><span style="color:#f92672">]</span>
+    bin<span style="color:#f92672">.</span>install_symlink <span style="color:#66d9ef">Dir</span><span style="color:#f92672">[</span>libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin/go*&#34;</span><span style="color:#f92672">]</span>
+
+    system bin<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;go&#34;</span>, <span style="color:#e6db74">&#34;install&#34;</span>, <span style="color:#e6db74">&#34;-race&#34;</span>, <span style="color:#e6db74">&#34;std&#34;</span>
+
+    <span style="color:#75715e"># Build and install godoc</span>
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">.</span>prepend_path <span style="color:#e6db74">&#34;PATH&#34;</span>, bin
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOPATH&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> buildpath
+    (buildpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;src/golang.org/x/tools&#34;</span>)<span style="color:#f92672">.</span>install resource(<span style="color:#e6db74">&#34;gotools&#34;</span>)
+    cd <span style="color:#e6db74">&#34;src/golang.org/x/tools/cmd/godoc/&#34;</span> <span style="color:#66d9ef">do</span>
+      system <span style="color:#e6db74">&#34;go&#34;</span>, <span style="color:#e6db74">&#34;build&#34;</span>
+      (libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin&#34;</span>)<span style="color:#f92672">.</span>install <span style="color:#e6db74">&#34;godoc&#34;</span>
+    <span style="color:#66d9ef">end</span>
+    bin<span style="color:#f92672">.</span>install_symlink libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin/godoc&#34;</span>
+  <span style="color:#66d9ef">end</span>
+
+  test <span style="color:#66d9ef">do</span>
+    (testpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;hello.go&#34;</span>)<span style="color:#f92672">.</span>write <span style="color:#f92672">&lt;&lt;~</span><span style="color:#66d9ef">EOS</span>
+      package main
+      import <span style="color:#e6db74">&#34;fmt&#34;</span>
+      func main() {
+          fmt<span style="color:#f92672">.</span>Println(<span style="color:#e6db74">&#34;Hello World&#34;</span>)
+      }
+    <span style="color:#66d9ef">EOS</span>
+    <span style="color:#75715e"># Run go fmt check for no errors then run the program.</span>
+    <span style="color:#75715e"># This is a a bare minimum of go working as it uses fmt, build, and run.</span>
+    system bin<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;go&#34;</span>, <span style="color:#e6db74">&#34;fmt&#34;</span>, <span style="color:#e6db74">&#34;hello.go&#34;</span>
+    assert_equal <span style="color:#e6db74">&#34;Hello World</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, shell_output(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span>bin<span style="color:#e6db74">}</span><span style="color:#e6db74">/go run hello.go&#34;</span>)
+
+    <span style="color:#75715e"># godoc was installed</span>
+    assert_predicate libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin/godoc&#34;</span>, <span style="color:#e6db74">:exist?</span>
+    assert_predicate libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin/godoc&#34;</span>, <span style="color:#e6db74">:executable?</span>
+
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOOS&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;freebsd&#34;</span>
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOARCH&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;amd64&#34;</span>
+    system bin<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;go&#34;</span>, <span style="color:#e6db74">&#34;build&#34;</span>, <span style="color:#e6db74">&#34;hello.go&#34;</span>
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>安装脚本里面有请求 <a href="https://go.googlesource.com/tools.git">https://go.googlesource.com/tools.git</a> 地址的信息，我们可以将这块的替换掉应该就可以。</p>
+<h2 id="解决方案">解决方案</h2>
+<p>brew在本地管理安装包的文件夹为</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/usr/local/Cellar/
+</code></pre></div><p>brew在本地管理安装脚本的文件夹为</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula
+</code></pre></div><p>这里我们只需要修改<code>/usr/local/Homebrew/Library/Taps</code>下Go的安装脚本，将 <a href="https://go.googlesource.com/tools.git">https://go.googlesource.com/tools.git</a> 替换成 <a href="https://github.com/golang/tools">https://github.com/golang/tools</a> 即可。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Go</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">Formula</span>
+  desc <span style="color:#e6db74">&#34;Open source programming language to build simple/reliable/efficient software&#34;</span>
+  homepage <span style="color:#e6db74">&#34;https://golang.org&#34;</span>
+
+  stable <span style="color:#66d9ef">do</span>
+    url <span style="color:#e6db74">&#34;https://dl.google.com/go/go1.14.1.src.tar.gz&#34;</span>
+    mirror <span style="color:#e6db74">&#34;https://fossies.org/linux/misc/go1.14.1.src.tar.gz&#34;</span>
+    sha256 <span style="color:#e6db74">&#34;2ad2572115b0d1b4cb4c138e6b3a31cee6294cb48af75ee86bec3dca04507676&#34;</span>
+
+    go_version <span style="color:#f92672">=</span> version<span style="color:#f92672">.</span>to_s<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;.&#34;</span>)<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">1</span><span style="color:#f92672">].</span>join(<span style="color:#e6db74">&#34;.&#34;</span>)
+    resource <span style="color:#e6db74">&#34;gotools&#34;</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#75715e">#url &#34;https://go.googlesource.com/tools.git&#34;,</span>
+    url <span style="color:#e6db74">&#34;https://github.com/golang/tools.git&#34;</span>,
+          <span style="color:#e6db74">:branch</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;release-branch.go</span><span style="color:#e6db74">#{</span>go_version<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
+
+  bottle <span style="color:#66d9ef">do</span>
+    sha256 <span style="color:#e6db74">&#34;36fdd54a9307ba19cc69425586e2d63188f2f2b7f541ab9fd2ef3447e376329f&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:catalina</span>
+    sha256 <span style="color:#e6db74">&#34;bab387fda3e4683943bd7b9b9208141502d6a2cc42c4b21137effaec9f208e1c&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:mojave</span>
+    sha256 <span style="color:#e6db74">&#34;ffb583abeb5263269281532f45a70a074ae0affe6edecb13442024b70bf13b04&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:high_sierra</span>
+  <span style="color:#66d9ef">end</span>
+
+  head <span style="color:#66d9ef">do</span>
+      <span style="color:#75715e">#url &#34;https://go.googlesource.com/go.git&#34;</span>
+      url <span style="color:#e6db74">&#34;https://github.com/golang/tools.git&#34;</span>
+
+    resource <span style="color:#e6db74">&#34;gotools&#34;</span> <span style="color:#66d9ef">do</span>
+        <span style="color:#75715e">#url &#34;https://go.googlesource.com/tools.git&#34;</span>
+      url <span style="color:#e6db74">&#34;https://github.com/golang/tools.git&#34;</span>
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
+
+  depends_on <span style="color:#e6db74">:macos</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:el_capitan</span>
+
+  <span style="color:#75715e"># Don&#39;t update this unless this version cannot bootstrap the new version.</span>
+  resource <span style="color:#e6db74">&#34;gobootstrap&#34;</span> <span style="color:#66d9ef">do</span>
+    url <span style="color:#e6db74">&#34;https://storage.googleapis.com/golang/go1.7.darwin-amd64.tar.gz&#34;</span>
+    sha256 <span style="color:#e6db74">&#34;51d905e0b43b3d0ed41aaf23e19001ab4bc3f96c3ca134b48f7892485fc52961&#34;</span>
+  <span style="color:#66d9ef">end</span>
+
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">install</span>
+    (buildpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;gobootstrap&#34;</span>)<span style="color:#f92672">.</span>install resource(<span style="color:#e6db74">&#34;gobootstrap&#34;</span>)
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOROOT_BOOTSTRAP&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> buildpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;gobootstrap&#34;</span>
+
+    cd <span style="color:#e6db74">&#34;src&#34;</span> <span style="color:#66d9ef">do</span>
+      <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOROOT_FINAL&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> libexec
+      <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOOS&#34;</span><span style="color:#f92672">]</span>         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;darwin&#34;</span>
+      system <span style="color:#e6db74">&#34;./make.bash&#34;</span>, <span style="color:#e6db74">&#34;--no-clean&#34;</span>
+    <span style="color:#66d9ef">end</span>
+
+    (buildpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;pkg/obj&#34;</span>)<span style="color:#f92672">.</span>rmtree
+    rm_rf <span style="color:#e6db74">&#34;gobootstrap&#34;</span> <span style="color:#75715e"># Bootstrap not required beyond compile.</span>
+    libexec<span style="color:#f92672">.</span>install <span style="color:#66d9ef">Dir</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;*&#34;</span><span style="color:#f92672">]</span>
+    bin<span style="color:#f92672">.</span>install_symlink <span style="color:#66d9ef">Dir</span><span style="color:#f92672">[</span>libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin/go*&#34;</span><span style="color:#f92672">]</span>
+
+    system bin<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;go&#34;</span>, <span style="color:#e6db74">&#34;install&#34;</span>, <span style="color:#e6db74">&#34;-race&#34;</span>, <span style="color:#e6db74">&#34;std&#34;</span>
+
+    <span style="color:#75715e"># Build and install godoc</span>
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">.</span>prepend_path <span style="color:#e6db74">&#34;PATH&#34;</span>, bin
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOPATH&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> buildpath
+    (buildpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;src/golang.org/x/tools&#34;</span>)<span style="color:#f92672">.</span>install resource(<span style="color:#e6db74">&#34;gotools&#34;</span>)
+    cd <span style="color:#e6db74">&#34;src/golang.org/x/tools/cmd/godoc/&#34;</span> <span style="color:#66d9ef">do</span>
+      system <span style="color:#e6db74">&#34;go&#34;</span>, <span style="color:#e6db74">&#34;build&#34;</span>
+      (libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin&#34;</span>)<span style="color:#f92672">.</span>install <span style="color:#e6db74">&#34;godoc&#34;</span>
+    <span style="color:#66d9ef">end</span>
+    bin<span style="color:#f92672">.</span>install_symlink libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin/godoc&#34;</span>
+  <span style="color:#66d9ef">end</span>
+
+  test <span style="color:#66d9ef">do</span>
+    (testpath<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;hello.go&#34;</span>)<span style="color:#f92672">.</span>write <span style="color:#f92672">&lt;&lt;~</span><span style="color:#66d9ef">EOS</span>
+      package main
+
+      import <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+      func main() {
+          fmt<span style="color:#f92672">.</span>Println(<span style="color:#e6db74">&#34;Hello World&#34;</span>)
+      }
+    <span style="color:#66d9ef">EOS</span>
+    <span style="color:#75715e"># Run go fmt check for no errors then run the program.</span>
+    <span style="color:#75715e"># This is a a bare minimum of go working as it uses fmt, build, and run.</span>
+    system bin<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;go&#34;</span>, <span style="color:#e6db74">&#34;fmt&#34;</span>, <span style="color:#e6db74">&#34;hello.go&#34;</span>
+    assert_equal <span style="color:#e6db74">&#34;Hello World</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, shell_output(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span>bin<span style="color:#e6db74">}</span><span style="color:#e6db74">/go run hello.go&#34;</span>)
+
+    <span style="color:#75715e"># godoc was installed</span>
+    assert_predicate libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin/godoc&#34;</span>, <span style="color:#e6db74">:exist?</span>
+    assert_predicate libexec<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;bin/godoc&#34;</span>, <span style="color:#e6db74">:executable?</span>
+
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOOS&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;freebsd&#34;</span>
+    <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GOARCH&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;amd64&#34;</span>
+    system bin<span style="color:#f92672">/</span><span style="color:#e6db74">&#34;go&#34;</span>, <span style="color:#e6db74">&#34;build&#34;</span>, <span style="color:#e6db74">&#34;hello.go&#34;</span>
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+
+</code></pre></div>
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/notes/%E8%87%AA%E5%BB%BACA%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81/">自建CA证书认证</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/post/Kubernetes%E5%AE%89%E8%A3%85/">Kubernetes安装</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/post/Docekr%E5%AE%89%E8%A3%85/">Docekr安装</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/post/Trouble/">Trouble</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/post/%E6%95%B0%E4%BB%93/">数仓</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://github.com/BuLianWei/bulianwei.github.io.git/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://github.com/BuLianWei/bulianwei.github.io.git">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Kubernetes%E5%AE%89%E8%A3%85/" title="Kubernetes安装">Kubernetes安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Docekr%E5%AE%89%E8%A3%85/" title="Docekr安装">Docekr安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Trouble/" title="Trouble">Trouble</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/%E6%95%B0%E4%BB%93/" title="数仓">数仓</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/HBase/" title="HBase">HBase</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Flume/" title="Flume">Flume</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Kafka/" title="Kafka">Kafka</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Spark/" title="Spark">Spark</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Flink/" title="Flink">Flink</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Hadoop/" title="Hadoop">Hadoop</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="这里是广告位" target="_blank" style="color:red">
+                
+                    这里是广告位
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://github.com/BuLianWei/bulianwei.github.io.git/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://github.com/BuLianWei/bulianwei.github.io.git">Abiu的博客 By Abiu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/BuLianWei/bulianwei.github.io.git/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/BuLianWei/bulianwei.github.io.git/js/douban.js'></script>
+
+</body>
+
+</html>

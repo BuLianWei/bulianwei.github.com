@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Notes | Abiu的博客</title>
+    <meta property="og:title" content="Notes - Abiu的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Notes">
+        
+    <meta name="author" content="Abiu">
+    <meta property="og:url" content="https://github.com/BuLianWei/bulianwei.github.io.git/notes/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/normalize.css'>
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/style.css'>
+    <link rel="alternate" type="application/rss+xml+xml" href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/index.xml" title="Abiu的博客" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4031353640611810",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/douban.css'>
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://github.com/BuLianWei/bulianwei.github.io.git">
+                        Abiu的博客
+                    </a>
+                
+                
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://github.com/BuLianWei/bulianwei.github.io.git">首页</a>
+                    
+                    <a class="current" href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/" title="笔记">笔记</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/post/" title="归档">归档</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/SSL/" title="SSL">SSL</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月26日
+        </date>
+        
+        <div class="post-content">
+            生成服务端keystore（密钥和证书） keytool -keystore server.kestore.jks -alias server -validity 365 -storepass blw -kepass blw -genkey -dname * CH=CA,OU=eBay,O=eBay,L=SH,ST=SH,C=CN* 生成客户端keystore（密钥和证书） keytool -keystore client.kestore.jks -alias client -validity 365 -storepass blw -kepass blw -gankey -dname * CH=CA,OU=eBay,O=eBay,L=SH,ST=SH,C=CN* 将CA证书导入服务端truststore keytool -v -keystore server.truststore.jks -alias CARoot -import -file cat.crt -storepass blw 将CA证书导入客户端truststore keytool -v -keystore client.truststore.jks -alias CARoot -import -file cat.crt -storepass blw 导出服务端证书 keytool……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/SSL/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/" title="Go插件工具安装问题">Go插件工具安装问题</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月26日
+        </date>
+        
+        <div class="post-content">
+            Go插件工具安装问题 在Mac上在学习使用Go或者安装其他带有Go依赖的安装包时（比如git-lfs）可能会遇到Go插件工具安装问题下面我们就来解决一下这个问题（网上也有相关使用代理的情况，这里不再说明） 引发原因 mac 下的包管理工具brew 可以方便的安装工具包或者相应的软件应用，当使用……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/%E8%87%AA%E5%BB%BACA%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81/" title="自建CA证书认证">自建CA证书认证</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月26日
+        </date>
+        
+        <div class="post-content">
+            自建CA证书认证 CA证书认证通常包含三部分，CA认证服务器、业务服务器、客户端，也可以简单分成两部分CA/业务服务器，和客户端 CA服务器 生成私钥(pem) openssl genrsa -out cakey.pem -des 2048 gen:生成 rsa:加密算法 out:输出 des:秘钥加密口令(可加可不加) 2048:秘钥生成长度(2048 bits……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/%E8%87%AA%E5%BB%BACA%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Kafka/" title="Kafka">Kafka</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年1月13日
+        </date>
+        
+        <div class="post-content">
+            Kafka 一个分区内的数据才能保证幂等性和有序性 架构 名次解释 Broker：Kafka服务器 Producer：生产者，生产消息 Consumer：消费者，消费数据 Consumer Group：消费者组，某一个分区只能被同一个消费者组内的一个消费者消费 Topic：消息主题。逻辑概念 Partition：消息分区……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Kafka/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Redis/" title="Redis">Redis</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月26日
+        </date>
+        
+        <div class="post-content">
+            Redis（Remote Dictionary Server） Redis 运行快速的原因 完全基于内存操作 数据结构简单，数据操作也简单 使用多路I/O复用模型 数据类型 String 单条操作 增：set key value 查：get key 删：del key 多条操作 增：mset key value [key1 value1] 查：mget key [key1] 其他命令 strlen key //获取字符串长度 append key value //有则追加，无则新建……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Redis/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/hello-world/" title="Hello World">Hello World</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2018年9月12日
+        </date>
+        
+        <div class="post-content">
+            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick Start Create a new post $ hexo new &#34;My New Post&#34; More info: Writing
+Run server $ hexo server More info: Server
+Generate static files $ hexo generate More info: Generating
+Deploy to remote sites $ hexo deploy More info: Deployment……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/hello-world/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Spark/" title="Spark">Spark</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        <div class="post-content">
+            Spark 编码 1. map 和 mapPartitions map是对rdd中的每一个元素进行操作； mapPartitions则是对rdd中的每个分区的迭代器进行操作 MapPartitions的优点： 如果是普通的map，比如一个partition中有1万条数据。ok，那么你的function要执行和计算1万次。 使用MapPa……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Spark/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Scala/" title="Scala">Scala</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        <div class="post-content">
+            Scala 1. 半生类和半生对象 //半生类 class A{ def apply()={ } } //半生对象 object A{ def apply()={ } } val a=A() //调用的是object.apply val a1=new A() al() //调用的是class.apply //类名() object.apply //对象名() class.apply 最佳实践是在object的apply里面 new Class 2. 尾递归求和 def sum(nums:Int*)={ if(nums==0){ 0 }else{ nums.head+sum(nums.tail:_*) } } 3. Range to // 闭区间 until //左闭右开 Range……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Scala/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Linux/" title="Linux">Linux</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        <div class="post-content">
+            #Linux 1. 挂载 mount -t iso9660 -o ro /dev/cdrom /mnt/cdrom //将文件类型为iso9660的文件 以只读（ro）方式从 /dev/cdrom 挂载到/mnt/cdrom 2. 设置开机自动挂载 vi /etc/fstab /dev/cdrom /mnt/cdrom iso9660 defaults 0 0 3. 关闭防火墙 chkconfig iptables --list chkconfig iptables off //重启时也自动关闭 4. 设置yum本地源 cd /etc/yum.repos.d/ 修改baseurl=file:///或http:// 5. 将自己的包配置成yu……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Linux/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Java/" title="Java">Java</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        <div class="post-content">
+            Java基础知识清单 JVM JVM架构 Class file 有特定的文件标示（cafe babe），由类加载器加载进JVM方法区 在加载类时：静态块（只会加载一次）&gt;构造块&gt;构造方法 类加载器（ClassLoader） 实现通过类的全限定名（java/lang/String）获取该类的二进制字节流的……
+        </div>
+        <p class="readmore"><a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Java/">阅读全文</a></p>
+    </article>
+    
+    
+    
+
+
+
+<ol class="page-navigator">
+    
+
+    
+    <li  class="current">
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/">1</a>
+    </li>
+    
+    <li >
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/page/2/">2</a>
+    </li>
+    
+
+    
+    <li class="next">
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/page/2/">下一页</a>
+    </li>
+    
+</ol>
+
+
+
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://github.com/BuLianWei/bulianwei.github.io.git/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://github.com/BuLianWei/bulianwei.github.io.git">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Kubernetes%E5%AE%89%E8%A3%85/" title="Kubernetes安装">Kubernetes安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Docekr%E5%AE%89%E8%A3%85/" title="Docekr安装">Docekr安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Trouble/" title="Trouble">Trouble</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/%E6%95%B0%E4%BB%93/" title="数仓">数仓</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/HBase/" title="HBase">HBase</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Flume/" title="Flume">Flume</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Kafka/" title="Kafka">Kafka</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Spark/" title="Spark">Spark</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Flink/" title="Flink">Flink</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Hadoop/" title="Hadoop">Hadoop</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="这里是广告位" target="_blank" style="color:red">
+                
+                    这里是广告位
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://github.com/BuLianWei/bulianwei.github.io.git/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://github.com/BuLianWei/bulianwei.github.io.git">Abiu的博客 By Abiu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/BuLianWei/bulianwei.github.io.git/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/BuLianWei/bulianwei.github.io.git/js/douban.js'></script>
+
+</body>
+
+</html>

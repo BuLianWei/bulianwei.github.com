@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Redis | Abiu的博客</title>
+    <meta property="og:title" content="Redis - Abiu的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2019-12-26T23:50:21&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2019-12-26T23:50:21&#43;08:00'>
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Redis">
+        
+    <meta name="author" content="Abiu">
+    <meta property="og:url" content="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Redis/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/normalize.css'>
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4031353640611810",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/douban.css'>
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://github.com/BuLianWei/bulianwei.github.io.git">
+                        Abiu的博客
+                    </a>
+                
+                
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://github.com/BuLianWei/bulianwei.github.io.git">首页</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/" title="笔记">笔记</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/post/" title="归档">归档</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">Redis</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月26日
+        </date>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="redisremote-dictionary-server">Redis（Remote Dictionary Server）</h1>
+<h2 id="redis-运行快速的原因">Redis 运行快速的原因</h2>
+<ol>
+<li>
+<p>完全基于内存操作</p>
+</li>
+<li>
+<p>数据结构简单，数据操作也简单</p>
+</li>
+<li>
+<p>使用多路I/O复用模型</p>
+</li>
+</ol>
+<h2 id="数据类型">数据类型</h2>
+<h3 id="string">String</h3>
+<h4 id="单条操作">单条操作</h4>
+<ol>
+<li>增：set	key	value</li>
+<li>查：get	key</li>
+<li>删：del	key</li>
+</ol>
+<h4 id="多条操作">多条操作</h4>
+<ol>
+<li>增：mset	key	value	[key1	value1]</li>
+<li>查：mget	key	[key1]</li>
+</ol>
+<h4 id="其他命令">其他命令</h4>
+<ol>
+<li>strlen	key	//获取字符串长度</li>
+<li>append	key	value	//有则追加，无则新建</li>
+<li>setnx	key	value	//不存在就设置，存在就不设置</li>
+<li>incr	key	//自增 1</li>
+<li>incrby	key	num  //给key的值增加num（int 类型），num 正数则为加，num 为负数 则为减</li>
+<li>incrbyfloat	key	num	//给key的值增加num（float 类型）</li>
+<li>decr	key  //自减 1</li>
+<li>decrby	key	num	//给key的值减num</li>
+<li>setex	key	second	value	//设置key的值为value存活时间为second秒</li>
+<li>psetex	key	millisecond	value	//设置key的值为value存活时间为millisecond毫秒</li>
+</ol>
+<blockquote>
+<p>注：
+字符串值最大值为512m</p>
+</blockquote>
+<h3 id="hash">Hash</h3>
+<p>和字符串相似，可理解为字符串厘米套字符串</p>
+<h4 id="单条操作-1">单条操作</h4>
+<ol>
+<li>增：hset	key	field	value</li>
+<li>查：hget	key	field</li>
+<li>删：hdel	key	field</li>
+</ol>
+<h4 id="多条操作-1">多条操作</h4>
+<ol>
+<li>增：hmset	key	field	value	[field1	value2]</li>
+<li>查：hmget	key	field	[field1]</li>
+</ol>
+<h4 id="其他命令-1">其他命令</h4>
+<ol>
+<li>hgetall	key	//获取key的全部的值</li>
+<li>hlen	key	//获取key的值的数量</li>
+<li>hexists	key	field	//是否存在field</li>
+<li>hkeys	key	//所有key的字段（field）</li>
+<li>hvals	key	//所有key的值</li>
+<li>hincrby	key	field	num	//给key的field的值增加num （num 为int值）</li>
+<li>hincrybyfloat	key	field	num	//给key的field的值增加num （num 为float）</li>
+<li>hsetnx	key	field	value	//存在不设置，不存在设置</li>
+</ol>
+<blockquote>
+<p>注：</p>
+<ol>
+<li>Hash类型的value只能存字符串，不允许再嵌套其他类型，如果数据为空为Nil</li>
+<li>每个Hash可以存储$2^{32}-1$个键的值对</li>
+<li>Hash类型十分贴近对象的数据存储，并且可以灵活添加、删除对象属性。但Hash类型设计并不是存在量而设计的，切记不可滥用，更不可将Hash作为对象列表使用</li>
+<li>hgetall操作可以获取全部属性，如果内部field过多，遍历整体数据时效率会降低，很有可能成为数据访问的瓶颈</li>
+</ol>
+</blockquote>
+<h3 id="string存储对象json-vs-hash存储对象">String存储对象（Json） VS Hash存储对象</h3>
+<ol>
+<li>String存在对象讲究整体性，以读为主</li>
+<li>Hash存储对象讲究分散性，以写为主</li>
+</ol>
+<h3 id="list">List</h3>
+<p>讲究顺序</p>
+<h4 id="添加">添加</h4>
+<ol>
+<li>lpush	key	value	[value1]	//从左添加</li>
+<li>rpush	key	value	[value1]	//从右添加</li>
+</ol>
+<h4 id="获取">获取</h4>
+<ol>
+<li>lrange	key	start	stop</li>
+<li>lindex	key	index</li>
+<li>llen	key</li>
+</ol>
+<h4 id="获取并移除">获取并移除</h4>
+<ol>
+<li>lpop	key	//从左出</li>
+<li>rpop	key	//从右出</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tex" data-lang="tex">lpush	list	a	b	c
+结果：c b a
+===============================
+rpush list a	b	c
+结果：a b c
+===============================
+list=[a	b	c]
+lpop list
+结果：b c
+===============================
+list=[a b c]
+rpop list
+结果：a b
+===============================
+</code></pre></div><blockquote>
+<p>注：</p>
+<ol>
+<li>list中保存的数据都是String，数据总量是有限的，最多$2^{32}-1$个元素</li>
+<li>list具有索引的概念，但是操作数据时通常以队列的形式进行入队出队操作（或以栈的形式进行入栈出栈操作）</li>
+<li>当stop的值为-1时，获取的是全部数据</li>
+<li>list对数据进行分页操作，通常第一页的数据使的信息来自list，其他页面的数据通过数据形式进行加载</li>
+</ol>
+</blockquote>
+<h3 id="set">Set</h3>
+<h4 id="命令">命令</h4>
+<ol>
+<li>增：sadd	key	member	[member1]</li>
+<li>查：smembers	key</li>
+<li>删：srem	key	member	[member1]</li>
+<li>获取总量：scard	key</li>
+<li>判定是否存在：sismember	key	member</li>
+<li>随机获取（原集合保留）：srandmember	key	[count]</li>
+<li>随机获取（原集合不保留）：spop	key</li>
+<li>集合交集：sinter	key	key1	key2</li>
+<li>集合并集：sunion	key	key1	key2</li>
+<li>集合差集：sdiff	key	key1	key2</li>
+<li>存储集合交集：sinterstore	destination	key	key1	key2</li>
+<li>存储集合并集：sunionstore	destination	key	key1	key2</li>
+<li>存储集合差集：sdiffstore	destination	key	key1	key2</li>
+<li>集合元素移动：smove	source	destination	member</li>
+</ol>
+<h3 id="sorted_set">Sorted_Set</h3>
+<h4 id="命令-1">命令</h4>
+<ol>
+<li>增：zadd	key	score	member	[score1	member1]</li>
+<li>删：zrem	key	member	[member1]</li>
+<li>获取全部（正序）：zrange	key	start	stop	[withscores]</li>
+<li>获取全部（倒序）：zrevrange	key	start	stop	[withscores]</li>
+<li>按条件查（正序）：zrangebyscore	key	min	max	[withscore	limit]</li>
+<li>按条件查（倒序）：zrevrangebyscore	key	max	min	[withscore	limit]</li>
+<li>按条件删除（索引）：zremrangebyrank	key	start	stop</li>
+<li>按条件删除（积分）：zremrangebyscore	key	min	max</li>
+<li>获取集合总量：zcard	key	|	zcount	key	min	max</li>
+<li>存储集合交集：	zinterstore	destination	numkeys	key	key1</li>
+<li>存储集合并集：zunionstore	destination	numkeys	key	key1</li>
+<li>获取索引（正序）：zrank	key	member</li>
+<li>获取索引（倒序）：zrevrank	key	member</li>
+<li>score值获取：zscore	key	member</li>
+<li>score值修改：zincrby	key	num	member</li>
+</ol>
+<h2 id="key的操作">Key的操作</h2>
+<h3 id="命令-2">命令</h3>
+<ol>
+<li>删除：del	key</li>
+<li>判断是否存在：exists	key</li>
+<li>获取key类型：type	key</li>
+<li>指定有效期：
+<ol>
+<li>expire	key	seconds</li>
+<li>pexpire	key	milliseconds</li>
+<li>expireat	key	timestamp</li>
+<li>pexpireat	key	milliseconds-timestamp</li>
+</ol>
+</li>
+<li>获取有效期：
+<ol>
+<li>ttl	key</li>
+<li>pttl	key</li>
+</ol>
+</li>
+<li>设置永久：persist	key</li>
+<li>查询key：key	pattern	//*,?,[]</li>
+<li>重命名：rename	key	newkey	|	renamenx	key	newkey</li>
+<li>对key排序：sort</li>
+</ol>
+<h2 id="数据库操作">数据库操作</h2>
+<h3 id="命令-3">命令</h3>
+<ol>
+<li>选择数据库：select	index</li>
+<li>数据移动：move	key	db</li>
+<li>数据库大小：dbsize</li>
+<li>数据清除：
+<ol>
+<li>单库删除：flushdb</li>
+<li>多库删除：flushall</li>
+</ol>
+</li>
+</ol>
+<h2 id="持久化">持久化</h2>
+<h3 id="rdbrelational-database">RDB（Relational Database）</h3>
+<h4 id="保存数据">保存数据</h4>
+<ol>
+<li>指令（前台）：save	//阻塞 立即保存</li>
+<li>指令（后台）：bgsave	//不立即执行</li>
+<li>配置：save	second	changes	//用bgsave执行操作</li>
+</ol>
+<h4 id="常用配置项">常用配置项</h4>
+<ol>
+<li>数据文件名称：dbfilename	dump.rdb	//默认</li>
+<li>数据保存路径：dir</li>
+<li>是否开启压缩：rdbcompression	yes	//默认</li>
+<li>是否开启格式检查：rdbchecksum	yes|no //默认no</li>
+</ol>
+<h4 id="rdb-持久化优点">RDB 持久化优点</h4>
+<ol>
+<li>RDB是一个紧凑压缩的二进制文件，存储效率高</li>
+<li>RDB存储的是Redis在某个时间点的数据快照，非常适用于数据备份全量复制等场景</li>
+<li>RDB恢复数据速度比AOF快</li>
+</ol>
+<h4 id="rdb应用">RDB应用</h4>
+<p>服务器中每X小时执行bgsave备份，并将RDB文件拷贝到远程机器中，用于灾难恢复</p>
+<h4 id="rdb持久化缺点">RDB持久化缺点</h4>
+<ol>
+<li>RDB方式无论是执行命令还是进行配置，无法做到实时持久化，具有较大可能丢失数据</li>
+<li>bgsave每次运行要执行fork操作创建子进程，要牺牲一些性能</li>
+<li>Redis的众多版本中未进行RDB文件格式的版本统一，有可能出现各个版本服务器之间数据格式无法兼容</li>
+<li>存储数量较大时，效率较低</li>
+<li>大数据量下的I／O性能较低</li>
+<li>基于fork创建子进程，内存产生额外消耗</li>
+<li>宕机带来的数据丢失风险</li>
+</ol>
+<h3 id="aofappend-only-file">AOF（Append Only File）</h3>
+<h4 id="保存数据策略">保存数据策略</h4>
+<p>每次：always
+每秒：everysec
+系统控制：no</p>
+<h4 id="配置">配置</h4>
+<ol>
+<li>是否开启：appendonly	yes|no	//默认no</li>
+<li>保存策略：appendfsync	always|everysec|no</li>
+<li>重写：
+手动：bgrewriteaof
+自动：
+auto-aof-rewrite-min-size	size
+auto-aof-rewrite-percentage	percentage</li>
+</ol>
+<h3 id="rdb-与-aof-如何选择">RDB 与 AOF 如何选择</h3>
+<p>对数据非常敏感，建议使用默认的AOF持久化方案
+AOF策略使用everysec，每秒fsync一次，该策略仍可保持很好性能，出现问题最多丢失一秒内的数据
+数据呈现阶段有效性，建议使用RDB持久化方案
+数据可以做到阶段内无丢失，且恢复较快，阶段点数据恢复通常使用RDB方案</p>
+<blockquote>
+<p>注意：
+AOF文件存储体积较大，恢复速度较慢
+利用RDB使用线紧凑的数据持久化会使Redis性能降低</p>
+</blockquote>
+<p>综合：</p>
+<ol>
+<li>RDB与AOF选择实际上是在一种权衡，每种都有利有弊</li>
+<li>如果不能承受分钟内的数据丢失，对业务数据非常敏感，选用AOF</li>
+<li>如果能承受分钟内的数据丢失，且追求大数据集的恢复速度选用RDB</li>
+<li>灾难恢复选用RDB</li>
+<li>双保险策略，同时开启RDB和AOF，重启后Redis优先使用AOF来恢复数据，降低丢失数据量</li>
+</ol>
+<h2 id="事务">事务</h2>
+<p>Redis事务不具有回滚机制</p>
+<h3 id="命令-4">命令</h3>
+<ol>
+<li>开启：multi</li>
+<li>结束：exec</li>
+<li>中断：discard</li>
+</ol>
+<h3 id="事务中的错误">事务中的错误</h3>
+<h4 id="命令错误">命令错误</h4>
+<p>执行事务过程中输入的命令出现错误，Redis会结束事务不再执行，并报出错误的命令</p>
+<h4 id="操作错误">操作错误</h4>
+<p>执行事务过程中输入的命令正确，其他操作错误，事务中其他命令正常执行，错误操作报错</p>
+<h2 id="锁">锁</h2>
+<p>Redis中锁和事务是相搭配使用的，可解决对key的监控</p>
+<h3 id="命令-5">命令</h3>
+<p>加锁：watch	key	[key1]
+解锁：unwatch  //取消掉所有key的监控</p>
+<h2 id="数据删除策略">数据删除策略</h2>
+<p>当key过期后执行数据删除的策略</p>
+<h3 id="定时删除即可删除">定时删除（即可删除）</h3>
+<p>创建一个具有时效性的key时，同时会创建一个定时器来监控该key是否过期，当key过期后立即进行key的删除</p>
+<p>优点：节约内存，到时就会进行删除，快速释放占用空间
+缺点：CPU压力大影响Redis响应时间和吞吐量
+总结：用处理器性能换取存储空间</p>
+<h3 id="惰性删除">惰性删除</h3>
+<p>当一个具有实效性的key过期后不会有删除操作，直到下一次调用时会先检查该key是否过期，如果过期则进行删除操作，并返回nil（该key不存在）</p>
+<p>优点：节约CPU性能，发现必须删除的时候才会删除
+缺点：内存压力大，出现长期占用内存的数据
+总结：用存储空间换取处理器性能</p>
+<h3 id="定期删除">定期删除</h3>
+<p>Redis会根据设置的参数，定期对具有时效性的key进行清理工作，它是定时删除和惰性删除的结合者，既不像定时删除会立即进行删除给予CPU压力，也不会像惰性删除给予内存压力</p>
+<h4 id="步骤">步骤</h4>
+<ol>
+<li>Redis启动服务器初始化时，读取配置server.hz的值（默认为10）</li>
+<li>每秒钟执行server.hz次serverCron（）服务（serverCron【服务器级别】-&gt;databasesCron【数据库级别】-&gt;activeExpireCyle【活跃数据级别】）</li>
+<li>acitveExpireCyle（）对每个expires[*]（数据库）逐一进行检测，每次执行250ms／server.hz</li>
+<li>对某个expires[*]检测时，随机挑选w个key进行检测
+<ol>
+<li>如果key超时，删除key</li>
+<li>如果一轮中删除的kye的数量&gt;w*25%，循环该过程</li>
+<li>如果一轮中删除的可以的数量&lt;=w<em>25%检查下一个expires[</em>],0-15（所有的数据库）循环</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>W=ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP
+参数current_db用于记录activeExpireCyle进入哪个expires[*]执行</p>
+</blockquote>
+<h2 id="数据淘汰策略">数据淘汰策略</h2>
+<p>当内存到达最大内存限制时进行的数据淘汰策略</p>
+<p>数据驱逐淘汰策略配置依据，使用info命令输出相关监控信息，查新缓存hit 命中次数和miss的次数，根据业务调优</p>
+<h3 id="配置-1">配置</h3>
+<ol>
+<li>最大可用内存：maxmemory	//默认为0，一般设置全部内存50%以上</li>
+<li>每次选取带删除数据个数：maxmemory-samples	//采用随机获取方式</li>
+<li>删除策略：maxmemory-policy	//达到最大内存后，对被选取带数据进行的删除策略</li>
+</ol>
+<h3 id="检测易失数据集可能会过期数据serverdbiexpires">检测易失数据集（可能会过期数据server.db[i].expires）</h3>
+<ol>
+<li>volatile-lru：挑选最近最少使用的数据淘汰（最近数据中使用时间离当前最远的数据）。<strong>常用</strong></li>
+<li>volatile-lfu：挑选最近使用次数最少的数据淘汰（最近数据中使用次数最少的数据）</li>
+<li>volatile-ttl：挑选将要过期数据淘汰</li>
+<li>volatile-random：任意挑选数据淘汰</li>
+</ol>
+<blockquote>
+<p>ttl：time to live
+lru：least recently	used
+lfu：least frequently	used</p>
+</blockquote>
+<h3 id="检测全库数据所有数据集serverdbidict">检测全库数据（所有数据集server.db[i].dict）</h3>
+<ol>
+<li>allkeys-lru：挑选最近最少使用的数据淘汰</li>
+<li>allkeys-lfu：挑选最近使用次数最少的数据淘汰</li>
+<li>allkeys-random：任意挑选数据淘汰</li>
+</ol>
+<h3 id="放弃数据驱逐">放弃数据驱逐</h3>
+<p>no-enviction	//禁止驱逐数据
+4.0中默认策略，会引发OOM</p>
+<h2 id="服务器基本配置">服务器基本配置</h2>
+<ol>
+<li>设置服务器守护进程方式：daemonize	yes|no</li>
+<li>绑定地址：bing	127.0.0.1</li>
+<li>设置服务器端口：port	6379</li>
+<li>设置数据库数量：databases	16</li>
+<li>设置服务器日志级别：loglevel	debug|verbose|notice|warning</li>
+<li>日志文件名称：logfile	端口号.log</li>
+<li>设置客户端最大连接数：maxclients	0</li>
+<li>客户端闲置最大等待时长：timeout	0</li>
+</ol>
+<h2 id="高级数据类型">高级数据类型</h2>
+<h3 id="bitmaps">Bitmaps</h3>
+<p>标记统计</p>
+<h4 id="命令-6">命令</h4>
+<ol>
+<li>获取：getbit	key	offset</li>
+<li>设置：setbit	key	offset	value	// 0 或 1</li>
+<li>交、并、或异
+bitop	op	destkey	key1	key2
+op：
+交：and
+并：or
+非：not
+异或：xor</li>
+<li>统计指定key中1的数量：bitcount	key	[start	end]</li>
+</ol>
+<h3 id="hyperloglog">HyperLoglog</h3>
+<p>基数统计</p>
+<h4 id="命令-7">命令</h4>
+<ol>
+<li>添加：pfadd	key	element	[element1]</li>
+<li>统计：pfcount	key	[key1]</li>
+<li>合并：pfmerge	destkey	sourcekey	[sourcekey1]</li>
+</ol>
+<h3 id="geo">GEO</h3>
+<p>距离计算（只计算水平距离）</p>
+<h4 id="命令-8">命令</h4>
+<ol>
+<li>添加：geoadd	key	longitude	latitude	member	[longitude1	latitude1	member1]</li>
+<li>获取：geopos	key	member	[member1]</li>
+<li>计算距离：geodist	key	member1	member2	[count]</li>
+<li>根据坐标求范围内数据：georadius	key	longitude	latitude	radius	m|km|ft|mi</li>
+<li>根据点求范围内的数据：georadusbymember	key	member	radius	m|km|ft|mi</li>
+<li>获取指定点对应的hash值：geohash	key	member	[member1]</li>
+</ol>
+<h2 id="主从复制">主从复制</h2>
+<h3 id="创建链接">创建链接</h3>
+<ul>
+<li>方式一：客户端发指令：slaveof	masterip masterport</li>
+<li>方式二：参数启动：redis-server	&ndash;slaveof	masterip masterport</li>
+<li>方式三：服务器配置：slaveof	masterip masterport</li>
+</ul>
+<h3 id="数据同步">数据同步</h3>
+<h4 id="全量复制">全量复制</h4>
+<p>从：发送指令（psync2）
+主：执行bgsave
+主：第一个slave链接时，创建命令缓冲区
+主：生成RDB文件，通过socket发送给slave
+从：接收RDB文件，清空自己数据，执行RDB文件恢复过程</p>
+<h4 id="部分复制">部分复制</h4>
+<p>从：发送命令告知RDB恢复完成
+主：发送复制缓冲区信息
+从：接收信息，执行bgsavewriteaof，恢复数据</p>
+<h2 id="哨兵模式">哨兵模式</h2>
+<h3 id="配置-2">配置</h3>
+<p>sentinel.conf</p>
+<p>启动：redis-sentinel</p>
+<h2 id="集群cluster">集群（cluster）</h2>
+<h3 id="配置-3">配置</h3>
+<ol>
+<li>开启：cluster-enabled	yes|no</li>
+<li>配置文件名称：cluster-config-file	filename</li>
+<li>节点超时时间：cluster-node-timeout	milliseconds</li>
+<li>master链接slave最小数：cluster-migration-barrier	count</li>
+</ol>
+<h3 id="命令-9">命令</h3>
+<ol>
+<li>查看节点信息：cluster nodes</li>
+<li>从一个节点Redis，切换其主节点：cluster	replicate	masterip</li>
+<li>新增主节点：cluster meet	ip:port</li>
+<li>忽略一个节点：cluster	foeget	id</li>
+<li>手动故障转移：cluster	failover</li>
+</ol>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/about/">个人简历</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/notes/hello-world/">Hello World</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/notes/Bigdata/">BigData</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/notes/Docker/">Docker</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/notes/Flink/">Flink</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://github.com/BuLianWei/bulianwei.github.io.git/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://github.com/BuLianWei/bulianwei.github.io.git">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Kubernetes%E5%AE%89%E8%A3%85/" title="Kubernetes安装">Kubernetes安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Docekr%E5%AE%89%E8%A3%85/" title="Docekr安装">Docekr安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Trouble/" title="Trouble">Trouble</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/%E6%95%B0%E4%BB%93/" title="数仓">数仓</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/HBase/" title="HBase">HBase</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Flume/" title="Flume">Flume</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Kafka/" title="Kafka">Kafka</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Spark/" title="Spark">Spark</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Flink/" title="Flink">Flink</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Hadoop/" title="Hadoop">Hadoop</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="这里是广告位" target="_blank" style="color:red">
+                
+                    这里是广告位
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://github.com/BuLianWei/bulianwei.github.io.git/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://github.com/BuLianWei/bulianwei.github.io.git">Abiu的博客 By Abiu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/BuLianWei/bulianwei.github.io.git/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/BuLianWei/bulianwei.github.io.git/js/douban.js'></script>
+
+</body>
+
+</html>

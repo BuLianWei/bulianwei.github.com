@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Flink | Abiu的博客</title>
+    <meta property="og:title" content="Flink - Abiu的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Flink">
+        
+    <meta name="author" content="Abiu">
+    <meta property="og:url" content="https://github.com/BuLianWei/bulianwei.github.io.git/notes/Flink/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/normalize.css'>
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4031353640611810",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/douban.css'>
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io.git/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://github.com/BuLianWei/bulianwei.github.io.git">
+                        Abiu的博客
+                    </a>
+                
+                
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://github.com/BuLianWei/bulianwei.github.io.git">首页</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/notes/" title="笔记">笔记</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/post/" title="归档">归档</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io.git/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">Flink</h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="flink">Flink</h1>
+<h2 id="application">Application</h2>
+<ul>
+<li>启动：flink run -c mainclasspath jarpath</li>
+<li>取消：flink cancel jobid</li>
+<li>停止：flink stop jobid</li>
+</ul>
+<h3 id="job">Job</h3>
+<h2 id="task">Task</h2>
+<p>job中的一个阶段就是一个task，一个task包括链条连接的多个subtask，一个task运行在一个线程里面，task平分slot里面的内存资源共享slot里面的cpu资源</p>
+<h2 id="subtask">SubTask</h2>
+<p>flink job中最小执行单元</p>
+<h2 id="算子">算子</h2>
+<h3 id="source">Source</h3>
+<p>使用EventTime，划分滚动窗口，如果使用的是并行的Source，例如KafkaSource，创建Kafka的Topic时有多个分区，每个Source的分区都要满足触发的条件，整个窗口才会被触发</p>
+<h3 id="transformation">Transformation</h3>
+<ul>
+<li>map	//DataStream - &gt; DataStream</li>
+<li>flatMap	//DataStream -&gt; DataStream</li>
+<li>filter	//DataStream -&gt; DataStream</li>
+<li>keyBy	//DataStream -&gt; KeyStream</li>
+</ul>
+<h3 id="sink">Sink</h3>
+<p>writeAsCsv必须是元组才能正常写入</p>
+<h2 id="watermark">WaterMark</h2>
+<p>决定一个窗口什么时候激活（触发），这时的窗口的最大长度为</p>
+<p>materMark&gt;=上一个窗口的结束边界就会触发窗口执行</p>
+<p>watermark是flink中窗口延迟触发的机制</p>
+<p>在每个算子内部都自己有一个事件时间时钟，事件时间时钟是根据watermark来更新的，。流入算子的数据可能是单分区也可能是多分区的，每个流入算子的分区端都会有一个自己的partition watermark标记，当该分区内进入新的高于之前watermark的watermark数据时，partition watermark标记才会被更新，task内部也维护一个task的watermark数据。如果某个分区的partition watermark &lt; task watermark，那么task watermark会更新为该partition watermark数据，然后把task 把当前更新的task watermark数据发向下游task。</p>
+<h3 id="assignerwithperiodicwatermarks">AssignerWithPeriodicWatermarks</h3>
+<p>windowmax=watermark+windowsize
+waterMark=数据携带的时间（窗口中最大的时间）-延迟执行的时间</p>
+<p>周期性的生成watermark，定期向分区数据流中插入时间水印。默认周期时间为200毫秒，可以使用setAutoWatermakrIntaval（）来设置
+BoundedOutOfOrdernessTimestampExtractor继承自AssignerWithPeriodicWatermarks 属于周期性watermark</p>
+<blockquote>
+<p>周期性数据水印在特定条件下可能会造成数据错误
+例如：env.fromCollection(List((1, &ldquo;a1&rdquo;, 158324361000l), (1, &ldquo;a2&rdquo;, 158324369000l), (1, &ldquo;a3&rdquo;, 158324364000l), (1, &ldquo;a4&rdquo;, 158324361000l), (1, &ldquo;a5&rdquo;,158324365000l), (1, &ldquo;a6&rdquo;, 158324362000l), (1, &ldquo;a7&rdquo;,158324367000l)))
+.assignTimestampsAndWatermarks(new BoundedOutOfOrdernessTimestampExtractor<a href="Time.milliseconds(0)">(Int, String, Long)</a> {
+override def extractTimestamp(element: (Int, String, Long)): Long = {
+element._3
+}
+})
+.keyBy(0)
+.window(TumblingEventTimeWindows.of(Time.seconds(4)))
+.sum(2)
+.print()
+当使用周期性水印AssignerWithPeriodicWatermarks时就会造成数据的错误计算
+是因为周期性水印是定期产生的（默认200毫秒）但是在这个周期里可能会出现有多个数据已经过去，这多个数据用于一个水印从而造成数据计算错误</p>
+</blockquote>
+<h3 id="assignerwithpunctuatedwatermarks">AssignerWithPunctuatedWatermarks</h3>
+<p>根据事件生成watermark。可以用于根据具体数据来生成watermark，</p>
+<h2 id="window">Window</h2>
+<h3 id="keyed-window">Keyed Window</h3>
+<p>使用keyby后流的窗口</p>
+<h4 id="globalwindow">GlobalWindow</h4>
+<h4 id="countwindow">CountWindow</h4>
+<h4 id="timewindow">TimeWindow</h4>
+<ul>
+<li>Tumbling</li>
+<li>Sliding</li>
+<li>Session</li>
+</ul>
+<h3 id="non-keyed-windows">Non-Keyed Windows</h3>
+<p>未使用keyby后流的窗口</p>
+<h4 id="windowall">windowAll</h4>
+<h2 id="window-之后的算子">Window 之后的算子</h2>
+<h3 id="trigger">Trigger</h3>
+<p>window 数据触发器，keyed or non-keyed window 都可以使用</p>
+<ul>
+<li>EventTimeTrigger：事件时间触发器</li>
+<li>ProcessingTimeTrigger：程序时间触发器</li>
+<li>CountTrigger：数量出发器。只发送窗口触发信号</li>
+<li>PurgingTrigger：代理模式触发器，发送窗口触发和数据清理信号</li>
+</ul>
+<h3 id="evictor">Evictor</h3>
+<p>window 数据剔除器，可以在window执行前或者执行后剔除window内的元素</p>
+<ul>
+<li>CountEvictor：数量剔除器。在Window中保留指定数量的元素，并从窗口头部开始丢弃其余元素。</li>
+<li>DeltaEvictor： 阈值剔除器。计算Window中最后一个元素与其余每个元素之间的增量，丢弃增量大于或等于阈值的元素。</li>
+<li>TimeEvictor：时间剔除器。保留Window中最近一段时间内的元素，并丢弃其余元素。</li>
+</ul>
+<h3 id="allowedlateness">AllowedLateness</h3>
+<p>决定一个窗口什么时候销毁，window 延迟数据是否保留计算，可能会造成窗口的二次触发，会导致结果数据的更新，造成数据不一致。这时窗口的最大长度为windowmax=waterma+windowsize+allowedleteness</p>
+<h2 id="state">State</h2>
+<h3 id="managed-state">Managed State</h3>
+<h4 id="operator-state">Operator State</h4>
+<p>operator state 绑定到每个算子的实例上，各个实例拥有自己的state，一个实例无法获取同并行的其他实例的state数据</p>
+<p>operator state ：记录的是每一个分区的偏移量</p>
+<h4 id="keyed-state">Keyed State</h4>
+<p>keyedstate：在一个subtask中可能有多个state，一个组对应一个key的状态</p>
+<h3 id="raw-state">Raw State</h3>
+<h2 id="checkpoint">CheckPoint</h2>
+<p>全自动程序管理，轻量快捷算子级数据快照</p>
+<p>开启flink checkpoint 后设置精准一次消费，kafka的offset会保存在savepoint设置的路径里面，还会降offset保存在kafka 特殊topic里面，如果程序重启时没有指定savepiont保存数据的地址会默认根据kafka 特殊topic保存的偏移量消费数据，可以设置不降offset保存在kafka 特殊topic里面使用，setCommitOffsetOnCheckpoints(false)</p>
+<p>开启检查点机制</p>
+<pre><code>// start a checkpoint every 1000 ms
+env.enableCheckpointing(1000);
+
+// advanced options:
+
+// set mode to exactly-once (this is the default)
+env.getCheckpointConfig().setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE);
+
+// make sure 500 ms of progress happen between checkpoints
+env.getCheckpointConfig().setMinPauseBetweenCheckpoints(500);
+
+// checkpoints have to complete within one minute, or are discarded
+env.getCheckpointConfig().setCheckpointTimeout(60000);
+
+// allow only one checkpoint to be in progress at the same time
+env.getCheckpointConfig().setMaxConcurrentCheckpoints(1);
+
+// enable externalized checkpoints which are retained after job cancellation
+env.getCheckpointConfig().enableExternalizedCheckpoints(ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
+
+// allow job recovery fallback to checkpoint when there is a more recent savepoint
+env.getCheckpointConfig().setPreferCheckpointForRecovery(true);
+</code></pre><h3 id="barrier">Barrier</h3>
+<p>算子checkpoint的依据，是exactly-once 和at-least-once语义的根据</p>
+<h2 id="savepoint">SavePoint</h2>
+<p>人工参与管理的application级别的数据快照</p>
+<h3 id="手动保存数据快照">手动保存数据快照</h3>
+<ul>
+<li>
+<p>flink stop jobid
+停止job并保存快照，如果在flink-conf.yaml上配置了state.savepoints.dir，停止任务后会自动将快照保存。</p>
+</li>
+<li>
+<p>flink stop jobid -p dirpath
+停止job并将快照保存在dirpath</p>
+</li>
+<li>
+<p>flink savepoint jobid [dirpath]
+在不结束job的情况下保存快照。如果带有dirpath则会将快照保存在此目录否则会保存在默认配置的保存目录</p>
+</li>
+</ul>
+<h3 id="从数据快照恢复程序">从数据快照恢复程序</h3>
+<ul>
+<li>
+<p>直接从savepoint目录恢复
+flink run -s dirpath
+从dirpath目录恢复程序</p>
+</li>
+<li>
+<p>跳过无法恢复的算子恢复
+flink run -s dirpath -n</p>
+</li>
+</ul>
+<h3 id="手动清除数据快照">手动清除数据快照</h3>
+<ul>
+<li>flink savepoint -d itemdirpath
+手动将数据某个具体快照删除（itemdirpath 快照具体根目录）</li>
+</ul>
+<h2 id="cepcomplex-event-processing">CEP（Complex Event Processing）</h2>
+<p>NFA（Nondeterministic Finite Automaton）</p>
+<h2 id="反压">反压</h2>
+<p>flink 三层buff缓存（resultsubpartition，nettybuff，netty中通过高水位来控制buff是否还可以接收数据，socketbuff）</p>
+<p>1.5 之前是基于tcp 窗口的反压机制，发送端根据接收端返回的ack和windox size 来发送数据，当window size 为0时，发送端则不会再附上数据，而是发送一个zerowindow 的探测性数据来确定是否可以再次发送数据，当接收端继续可以接收数据时，发送端才会继续发送数据</p>
+<p>基于tcp窗口的反压机制缺点
+1.单个task造成的反压，会阻断整个TM-TM的socket，连chekcpoint barrier 也无法发送
+2.反压路径较长，导致生效延迟较大</p>
+<p>1.5 引入credit 机制实现反压，credit 反压机制是类似于tcp 窗口反压实现的另一种反压机制，resultsubpartition在发送数据时会带有resultbuff里面还存有的数据大小 backlog size，inputchanel在接收到时会计算自己当前还能接收到的数据大小，当inputchanel无法再接收数据时会将credit置为0，告诉result不能再接收消息。result每次发送消息时会检测当前自己的credit数据，当credit为0时 则不会再向netty发送数据从而实现反压机制</p>
+<h2 id="其他">其他</h2>
+<p>两个流join 必须有等值字段必须都在同一个窗口里面</p>
+<p>duplicate key update  mysql数据库的更新插入 合为一条sql</p>
+<p>并行度： <strong>算子级别</strong> &gt; <strong>env级别</strong> &gt; <strong>Client级别</strong> &gt; <strong>系统默认级别</strong></p>
+<p>在所有Task共享资源槽点名字相同，默认情况下 （pipline）
+同一个job的同一个Task中的多个subTask不能在同一个slot槽中</p>
+<blockquote>
+<p>具有并行度的subtask 不能在一个slot槽中
+对于同一个job，不同Task【阶段】的subTask可以在同一个资源槽中</p>
+</blockquote>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/notes/SSL/">SSL</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/notes/Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/">Go插件工具安装问题</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/notes/%E8%87%AA%E5%BB%BACA%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81/">自建CA证书认证</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/post/Kubernetes%E5%AE%89%E8%A3%85/">Kubernetes安装</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io.git/post/Docekr%E5%AE%89%E8%A3%85/">Docekr安装</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://github.com/BuLianWei/bulianwei.github.io.git/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://github.com/BuLianWei/bulianwei.github.io.git">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Kubernetes%E5%AE%89%E8%A3%85/" title="Kubernetes安装">Kubernetes安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Docekr%E5%AE%89%E8%A3%85/" title="Docekr安装">Docekr安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Trouble/" title="Trouble">Trouble</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/%E6%95%B0%E4%BB%93/" title="数仓">数仓</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/HBase/" title="HBase">HBase</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Flume/" title="Flume">Flume</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Kafka/" title="Kafka">Kafka</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Spark/" title="Spark">Spark</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Flink/" title="Flink">Flink</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io.git/post/Hadoop/" title="Hadoop">Hadoop</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="这里是广告位" target="_blank" style="color:red">
+                
+                    这里是广告位
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://github.com/BuLianWei/bulianwei.github.io.git/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://github.com/BuLianWei/bulianwei.github.io.git">Abiu的博客 By Abiu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/BuLianWei/bulianwei.github.io.git/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/BuLianWei/bulianwei.github.io.git/js/douban.js'></script>
+
+</body>
+
+</html>
