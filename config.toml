@@ -1,5 +1,5 @@
-baseURL = "http://example.org/"
-title = "Abiu1的博客"
+baseURL = "https://github.com/BuLianWei/bulianwei.github.io"
+title = "Abiu的博客"
 theme = "maupassant"
 googleAnalytics = ""  # UA-XXXXXXXX-X
 
