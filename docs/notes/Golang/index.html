@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Golang | Abiu的博客</title>
+    <meta property="og:title" content="Golang - Abiu的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Golang">
+        
+    <meta name="author" content="Abiu">
+    <meta property="og:url" content="https://github.com/BuLianWei/bulianwei.github.io/notes/Golang/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/normalize.css'>
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4031353640611810",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/douban.css'>
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://github.com/BuLianWei/bulianwei.github.io">
+                        Abiu的博客
+                    </a>
+                
+                
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://github.com/BuLianWei/bulianwei.github.io">首页</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io/notes/" title="笔记">笔记</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io/post/" title="归档">归档</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">Golang</h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="golang">Golang</h1>
+<h2 id="数据类型">数据类型</h2>
+<h3 id="数值类型">数值类型</h3>
+<h4 id="bool">bool</h4>
+<h4 id="byte">byte</h4>
+<p>byte = uint8</p>
+<h4 id="int">int</h4>
+<p>有符号类型：int8，int16，int32，int64
+无符号类型：uint8，uint16，uint32，uint64
+rune = int32</p>
+<h4 id="float">float</h4>
+<p>float16，float32</p>
+<h4 id="string">string</h4>
+<h4 id="数组">数组</h4>
+<p>数组类型声明赋值方式</p>
+<ul>
+<li>
+<p>1</p>
+<pre><code>var arr [3]int
+  
+arr[0] = 1
+arr[1] = 2
+arr[2] = 3
+  
+</code></pre></li>
+<li>
+<p>2</p>
+<pre><code>var arr =[3]int{1,2,3}
+</code></pre></li>
+<li>
+<p>3</p>
+<pre><code>var arr =[...]int{1,2,3}
+</code></pre></li>
+<li>
+<p>4</p>
+<pre><code> arr :=[3]int{1,2,3}
+</code></pre></li>
+<li>
+<p>5</p>
+<pre><code> arr :=[...]int{1,2,3}
+</code></pre></li>
+</ul>
+<p>不管是使用&hellip;代替size还是有具体size 在声明赋值时必须有size</p>
+<h3 id="引用类型">引用类型</h3>
+<h4 id="slice">slice</h4>
+<h4 id="map">map</h4>
+<h2 id="变量">变量</h2>
+<p>go语言的变量声明了就必须使用，不用就别声明，否则编译不通过</p>
+<h3 id="函数变量声明">函数变量声明</h3>
+<h4 id="单一变量声明">单一变量声明</h4>
+<p>关键字	变量名称	变量类型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span>	<span style="color:#66d9ef">int</span>	
+</code></pre></div><p>声明的同时可以赋值变量，同时赋值可以省略变量类型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span>	= <span style="color:#ae81ff">0</span>	
+</code></pre></div><h4 id="多变量同时声明1">多变量同时声明1</h4>
+<p>关键字	变量名称，变量名称	变量类型
+多变量同时声明时，必须为多个类型一样的变量</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span>,<span style="color:#a6e22e">c</span> <span style="color:#66d9ef">int</span>
+</code></pre></div><p>声明的同时可以赋值变量，同时赋值时可以省略变量类型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span>,<span style="color:#a6e22e">c</span> = <span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>
+</code></pre></div><h4 id="多变量同时声明2">多变量同时声明2</h4>
+<p>关键字	（
+变量名称	变量类型
+变量名称	变量类型
+）
+带有括号的多变量赋值时，变量类型可以不同</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> (
+  <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span>
+  <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">string</span>
+)
+</code></pre></div><p>其中并且可以进行赋值操作，变量类型可以直接省略</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> (
+  <span style="color:#a6e22e">a</span> = <span style="color:#ae81ff">0</span>
+  <span style="color:#a6e22e">b</span> = <span style="color:#e6db74">&#34;bb&#34;</span>
+)
+</code></pre></div><h4 id="简短声明赋值">简短声明赋值</h4>
+<p>变量名称  :=  变量值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</code></pre></div><h3 id="全局变量声明">全局变量声明</h3>
+<p>全局变量声明，包含以上<strong>单一变量声明</strong>，<strong>多变量同时声明1</strong>，<strong>多变量同时声明2</strong>，声明方式，但是只有<strong>多变量同时声明2</strong>声明方式可以同时进行赋值操作，其他方式不支持赋值操作</p>
+<h3 id="指针">指针</h3>
+<p>&amp;：取地址</p>
+<p>*：取值</p>
+<h4 id="指针数组">指针数组</h4>
+<p>*[4]Type
+首先是一个指针，存储的是数组地址</p>
+<p>var arr [3]int{1,2,3}</p>
+<p>var p1 *[3]int</p>
+<p>p1=&amp;arr</p>
+<p>(*p1)[2]=100 简写成：p1[2]=100。p1操作的是arr数组</p>
+<h4 id="数组指针">数组指针</h4>
+<p>首先是一个数组，存储的是指针</p>
+<p>[4]*Type</p>
+<blockquote>
+<p>注意：
+*[4]int	//指针，4个长度的int类型数组的指针
+[4]*int	//数组，4个长度的int指针地址的数组
+*[4]*int	//指针，4个长度int指针地址数组的指针
+**[4]*int	//指针，4个长度int指针地址数组的指针的指针</p>
+</blockquote>
+<h2 id="条件语句">条件语句</h2>
+<h3 id="if">if</h3>
+<ul>
+<li>
+<p>简单形式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">==</span><span style="color:#ae81ff">2</span> {
+  
+}
+</code></pre></div></li>
+<li>
+<p>复合形式</p>
+<ul>
+<li>1
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">a</span> <span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> {
+    
+}
+</code></pre></div></li>
+<li>2
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span>  {
+    
+}
+</code></pre></div><p>当不写条件时，当作true处理</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="switch">switch</h3>
+<ul>
+<li>
+<p>简单形式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">a</span> {
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span>:
+  println(<span style="color:#ae81ff">1111</span>)
+<span style="color:#66d9ef">default</span>:
+}
+</code></pre></div></li>
+<li>
+<p>复合形式</p>
+<ul>
+<li>
+<p>1</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">a</span> {
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span>:
+  println(<span style="color:#ae81ff">1111</span>)
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>:
+  println(<span style="color:#ae81ff">222</span>,<span style="color:#ae81ff">333</span>,<span style="color:#ae81ff">444</span>)
+<span style="color:#66d9ef">default</span>:
+}
+</code></pre></div></li>
+<li>
+<p>2</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">4</span>
+<span style="color:#66d9ef">switch</span>  {
+<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>:
+  println(<span style="color:#e6db74">&#34;&gt;=0&#34;</span>)
+<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>:
+  println(<span style="color:#e6db74">&#34;&lt;=4&#34;</span>)
+}
+</code></pre></div><p>当不写条件时，当作true处理。此处只会输出一种情况<code>&gt;=0</code>，switch处理时只要满足一种情况就不会再进行判断</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="switch穿透-fallthrough">switch穿透 fallthrough</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">a</span> {
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span>:
+  println(<span style="color:#ae81ff">1111</span>)
+  <span style="color:#66d9ef">fallthrough</span>
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span>:
+  println(<span style="color:#ae81ff">2222</span>)
+<span style="color:#66d9ef">default</span>:
+}
+
+<span style="color:#f92672">======</span>=<span style="color:#a6e22e">输出为</span><span style="color:#f92672">======</span>=
+<span style="color:#ae81ff">1111</span>
+<span style="color:#ae81ff">2222</span>
+</code></pre></div><p>fallthrough 可以穿透case，链接上下两个case一起执行</p>
+<blockquote>
+<p>注意：
+a := 1
+switch a {</p>
+<p>default:
+println(&ldquo;default&rdquo;)</p>
+<p>case 1:
+println(1111)</p>
+<p>}
+=================输出为===========
+1111</p>
+</blockquote>
+<h2 id="循环语句">循环语句</h2>
+<p>go语言里面没有while，do while 等其他循环结构，只有for</p>
+<ul>
+<li>
+<p>简单形式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+
+}
+</code></pre></div></li>
+<li>
+<p>复合形式</p>
+<ul>
+<li>
+<p>1</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span> {
+    
+}
+</code></pre></div><p>不写条件，当作true处理</p>
+</li>
+<li>
+<p>2</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">index</span>,<span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>} {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;index:%d,value:%d \n&#34;</span>,<span style="color:#a6e22e">index</span>,<span style="color:#a6e22e">value</span>)
+}
+</code></pre></div><p>range关键字可以取出数组，切片，集合等容器里面的数据</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="defer关键字">defer关键字</h2>
+<p>defer 延迟，推迟执行。遵循栈的执行原则先进后出，参数变量是已经传递，是在return语句前执行</p>
+<h2 id="函数">函数</h2>
+<p>func name(a int,b int) (int){</p>
+<p>return 0</p>
+<p>}</p>
+<h3 id="函数返回值">函数返回值</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">name</span> ()(<span style="color:#66d9ef">int</span>){
+
+<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+
+}
+
+
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">name</span> ()<span style="color:#66d9ef">int</span>{
+
+<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+
+}
+
+
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">name</span> ()(<span style="color:#a6e22e">sum</span> <span style="color:#66d9ef">int</span>){
+
+<span style="color:#a6e22e">sum</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">1</span>
+
+<span style="color:#66d9ef">return</span>
+
+}
+
+</code></pre></div><h2 id="结构体">结构体</h2>
+<p>深拷贝，值传递</p>
+<ul>
+<li>
+<p>简单</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span>	<span style="color:#a6e22e">name</span>	<span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span>
+  <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">string</span>
+}
+</code></pre></div></li>
+<li>
+<p>匿名结构体</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span>
+  <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">string</span>
+}
+</code></pre></div></li>
+<li>
+<p>匿名结构体字段</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span>	<span style="color:#a6e22e">name</span>	<span style="color:#66d9ef">struct</span> {
+ <span style="color:#66d9ef">int</span>
+ <span style="color:#66d9ef">string</span>
+}
+</code></pre></div><p>匿名结构体字段访问时，使用匿名字段类型<code>name.int</code>，<code>name.string</code>，匿名的字段类型不能重复</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span>	<span style="color:#a6e22e">name</span>	<span style="color:#66d9ef">struct</span> {
+ <span style="color:#66d9ef">int</span>
+ <span style="color:#66d9ef">string</span>
+ <span style="color:#66d9ef">int</span>	<span style="color:#75715e">//不可以
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
+</ul>
+<h3 id="提升字段">提升字段</h3>
+<p>结构体可以嵌套，当一个结构体内嵌套另一个匿名结构体时，可以直接使用字段名称访问被嵌套结构体的字段，这叫做字段提升。
+字段提升只有在被嵌套结构体为匿名的时候可用。
+如果结构体中的字段与被嵌套结构体的字段一样，则访问的为本结构体字段</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">age</span> <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Student</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Person</span>
+	<span style="color:#a6e22e">addre</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#a6e22e">p</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;nihao&#34;</span>,<span style="color:#ae81ff">10</span>}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>)
+
+<span style="color:#a6e22e">s</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Student</span>{<span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;wohao&#34;</span>,<span style="color:#ae81ff">20</span>},<span style="color:#e6db74">&#34;beij&#34;</span>,<span style="color:#e6db74">&#34;djh&#34;</span>}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">age</span>,<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">addre</span>,<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">name</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">age</span>,<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">addre</span>)
+
+
+<span style="color:#f92672">======================</span><span style="color:#a6e22e">输出为</span><span style="color:#f92672">============================</span>
+
+{<span style="color:#a6e22e">nihao</span> <span style="color:#ae81ff">10</span>}
+{{<span style="color:#a6e22e">wohao</span> <span style="color:#ae81ff">20</span>} <span style="color:#a6e22e">beij</span> <span style="color:#a6e22e">djh</span>}
+<span style="color:#a6e22e">wohao</span> <span style="color:#ae81ff">20</span> <span style="color:#a6e22e">beij</span> <span style="color:#a6e22e">djh</span>
+<span style="color:#a6e22e">djh</span> <span style="color:#ae81ff">20</span> <span style="color:#a6e22e">beij</span>
+</code></pre></div><h2 id="方法">方法</h2>
+<p>方法是一个作用在struct结构体上的函数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#a6e22e">Struct</span>) <span style="color:#a6e22e">name</span>() {
+
+}
+</code></pre></div><p>实例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">age</span> <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Student</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Person</span>
+	<span style="color:#a6e22e">addre</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">run</span>(){
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;p run&#34;</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#a6e22e">Student</span>) <span style="color:#a6e22e">run</span>()  {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;s run&#34;</span>)
+}
+
+
+
+<span style="color:#a6e22e">p</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;lisi&#34;</span>,<span style="color:#ae81ff">10</span>}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>)
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">run</span>()
+<span style="color:#a6e22e">s</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Student</span>{<span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;wangwu&#34;</span>,<span style="color:#ae81ff">20</span>},<span style="color:#e6db74">&#34;beij&#34;</span>,<span style="color:#e6db74">&#34;xiaowangwu&#34;</span>}
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)
+<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">run</span>()
+<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">run</span>()
+
+
+
+
+
+<span style="color:#f92672">==============</span>=<span style="color:#a6e22e">输出为</span><span style="color:#f92672">================</span>
+{<span style="color:#a6e22e">lisi</span> <span style="color:#ae81ff">10</span>}
+<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">run</span>
+{{<span style="color:#a6e22e">wangwu</span> <span style="color:#ae81ff">20</span>} <span style="color:#a6e22e">beij</span> <span style="color:#a6e22e">xiaowangwu</span>}
+<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">run</span>
+<span style="color:#a6e22e">s</span> <span style="color:#a6e22e">run</span>
+</code></pre></div><h2 id="接口interface">接口（interface）</h2>
+<p>接口可以看作是一些方法的集合。接口是为了解耦合，go语言的接口是非侵入式的。空接口可以看作是任意类型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">interface</span>{
+  <span style="color:#a6e22e">start</span>()
+  <span style="color:#a6e22e">end</span>()
+}
+</code></pre></div><h3 id="接口断言">接口断言</h3>
+<p>利用接口来判断类型</p>
+<ul>
+<li>1
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">instance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">接口对象</span>.(<span style="color:#a6e22e">实际类型</span>)   <span style="color:#75715e">//不安全，会panic（）
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">instance</span>,<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">接口对象</span>.(<span style="color:#a6e22e">实际类型</span>)	<span style="color:#75715e">//安全
+</span></code></pre></div></li>
+<li>2
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">接口对象</span>.(<span style="color:#66d9ef">type</span>) {
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">实际类型</span><span style="color:#960050;background-color:#1e0010">：</span>
+    <span style="color:#a6e22e">xxx</span>
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">实际类型</span><span style="color:#960050;background-color:#1e0010">：</span>
+    <span style="color:#a6e22e">xxxx</span>
+}
+</code></pre></div></li>
+</ul>
+<h2 id="type-关键字">type 关键字</h2>
+<ul>
+<li>定义新类型
+type myint int
+定义一个int类型的myint类型，但是int和myint类型不一样不能通用</li>
+<li>给类型其别名
+type myint = int
+给一个int类型起一个别名，int和myint可以通用</li>
+</ul>
+<h2 id="创建对象">创建对象</h2>
+<h3 id="new">new</h3>
+<h3 id="make">make</h3>
+<ul>
+<li>
+<p>slice</p>
+<ul>
+<li>make([]int,10)
+长度（len）和容量（cap）都为10，默认值为int的零值</li>
+<li>make([]int,0,10)
+长度（len）为0，和容量（cap）为10，因为0个长度所以没有值</li>
+</ul>
+</li>
+<li>
+<p>map</p>
+<ul>
+<li>
+<p>make(map[string]string)</p>
+</li>
+<li>
+<p>make(map[string]string,10)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>chan</p>
+<ul>
+<li>make(chan bool)
+没有缓存的chan</li>
+<li>make(chan bool,10)
+长度为10的chan</li>
+</ul>
+</li>
+</ul>
+<h2 id="访问权限">访问权限</h2>
+<p>名称首字母大写时，可以在其他地方导入，小写其他地方访问不了</p>
+<h2 id="io">IO</h2>
+<h2 id="协程gorutine">协程（Gorutine）</h2>
+<h2 id="管道chan">管道（chan）</h2>
+<h2 id="反射reflect">反射（reflect）</h2>
+<h3 id="基本数据类型反射使用">基本数据类型反射使用</h3>
+<h4 id="修改值">修改值</h4>
+<ul>
+<li>step1:
+获取反射对象Value。要修改对象，就要获取对象的地址，用对象的引用地址来更改里面的具体值
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">0</span>
+<span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>)
+</code></pre></div></li>
+<li>step2:
+获取反射对象的指针对象
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">elem</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">Elem</span>()
+</code></pre></div></li>
+<li>step3:
+修改值
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">SetInt</span>(<span style="color:#ae81ff">9</span>)
+</code></pre></div></li>
+</ul>
+<p>完整步骤：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">0</span>
+<span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>)
+<span style="color:#a6e22e">elem</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">Elem</span>()
+<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">CanSet</span> {  <span style="color:#75715e">//判断反射对象是否可以修改，不可以直接返回不做修改
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span>
+}
+
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">Kind</span>() <span style="color:#f92672">==</span><span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Int</span>{ <span style="color:#75715e">//判断对象是否是int类型
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">SetInt</span>(<span style="color:#ae81ff">9</span>)
+}
+
+</code></pre></div><h3 id="函数调用">函数调用</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">star</span>()  {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;call this func&#34;</span>)
+}
+
+<span style="color:#a6e22e">valueOf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">star</span>)  <span style="color:#75715e">//这里star不能加（）
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">Kind</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Func</span> {
+  <span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#66d9ef">nil</span>)
+}
+</code></pre></div><h3 id="struct-的反射使用">struct 的反射使用</h3>
+<h4 id="获取字段名称和具体值">获取字段名称和具体值</h4>
+<ul>
+<li>
+<p>step1:
+获取反射valueOf和typeOf实例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">Age</span>  <span style="color:#66d9ef">int</span>
+}
+<span style="color:#a6e22e">p</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;zhangshan&#34;</span>,<span style="color:#ae81ff">30</span>}
+
+<span style="color:#a6e22e">valueOf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">p</span>)
+<span style="color:#a6e22e">typeOf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">p</span>)
+</code></pre></div></li>
+<li>
+<p>step2:
+通过实例获取字段名称和字段实际值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">typeOf</span>.<span style="color:#a6e22e">NumField</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;fieldname:  &#34;</span>,<span style="color:#a6e22e">typeOf</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Name</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;value:  &#34;</span>,<span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>))
+}
+</code></pre></div></li>
+</ul>
+<p>完整代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">Age</span>  <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#a6e22e">p</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;zhangshan&#34;</span>,<span style="color:#ae81ff">30</span>}
+
+<span style="color:#a6e22e">valueOf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">p</span>)
+<span style="color:#a6e22e">typeOf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">p</span>)
+
+
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">typeOf</span>.<span style="color:#a6e22e">NumField</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;fieldname:  &#34;</span>,<span style="color:#a6e22e">typeOf</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Name</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;value:  &#34;</span>,<span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>))
+}
+</code></pre></div><h4 id="修改字段值">修改字段值</h4>
+<ul>
+<li>
+<p>step1:
+获取反射valueOf实例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">Age</span>  <span style="color:#66d9ef">int</span>
+}
+<span style="color:#a6e22e">p</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;zhangshan&#34;</span>,<span style="color:#ae81ff">30</span>}
+
+<span style="color:#a6e22e">valueOf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">p</span>)  <span style="color:#75715e">//这里要填写p的地址
+</span></code></pre></div></li>
+<li>
+<p>step2:
+修改相应的字段值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#ae81ff">0</span>).<span style="color:#a6e22e">SetString</span>(<span style="color:#e6db74">&#34;wangwu&#34;</span>)
+</code></pre></div></li>
+</ul>
+<p>完整代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Age</span>  <span style="color:#66d9ef">int</span>
+}
+<span style="color:#a6e22e">p</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;zhangshan&#34;</span>,<span style="color:#ae81ff">30</span>}
+
+<span style="color:#a6e22e">valueOf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">p</span>)  <span style="color:#75715e">//这里要填写p的地址
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">Kind</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Ptr</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">Elem</span>().<span style="color:#a6e22e">CanSet</span>(){
+    <span style="color:#a6e22e">elem</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">Elem</span>()
+  <span style="color:#75715e">//  field := elem.Field(0)  //通过字段序号获取字段
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">field</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">FieldByName</span>(<span style="color:#e6db74">&#34;Name&#34;</span>)  <span style="color:#75715e">//通过字段名称来获取字段
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">field</span>.<span style="color:#a6e22e">SetString</span>(<span style="color:#e6db74">&#34;wangwu&#34;</span>)
+  }
+}
+</code></pre></div><blockquote>
+<p>注意：
+Person的字段为大写开头，为可访问字段，如果小写，则会发生程序panic
+<code>reflect: reflect.flag.mustBeAssignable using value obtained using unexported field</code></p>
+</blockquote>
+<h4 id="调用方法">调用方法</h4>
+<h5 id="调用无参数方法">调用无参数方法</h5>
+<ul>
+<li>
+<p>step1:
+获取反射valueOf实例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">Age</span>  <span style="color:#66d9ef">int</span>
+}
+<span style="color:#a6e22e">p</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;zhangshan&#34;</span>,<span style="color:#ae81ff">30</span>}
+  
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">Run</span>() {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;p run&#34;</span>)
+}
+  
+<span style="color:#a6e22e">valueOf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">p</span>)
+</code></pre></div></li>
+<li>
+<p>step2:
+通过反射实例获取方法实例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">method</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Run&#34;</span>)
+</code></pre></div></li>
+<li>
+<p>step3:
+调用方法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#66d9ef">nil</span>)
+</code></pre></div></li>
+</ul>
+<p>完整代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">Age</span>  <span style="color:#66d9ef">int</span>
+}
+<span style="color:#a6e22e">p</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">Person</span>{<span style="color:#e6db74">&#34;zhangshan&#34;</span>,<span style="color:#ae81ff">30</span>}
+  
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">Run</span>() {  <span style="color:#75715e">//方法名称一定要大写
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;p run&#34;</span>)
+}
+  
+<span style="color:#a6e22e">valueOf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">p</span>)
+
+<span style="color:#75715e">// method := valueOf.Method(0)  //通过序号获取方法实例
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">method</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">valueOf</span>.<span style="color:#a6e22e">MethodByName</span>(<span style="color:#e6db74">&#34;Run&#34;</span>)
+
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Kind</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Func</span> {
+  <span style="color:#75715e">// method.Call(make([]reflect.Value,0))  //传入一个空切片
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">Call</span>(<span style="color:#66d9ef">nil</span>)  <span style="color:#75715e">//直接传入nil空值
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h5 id="调用多参数方法">调用多参数方法</h5>
+<p>调用多参数方法和无参数方法执行步骤一样，只是在调用时传入参数的切片即可<code>method.Call([]reflect.Value{reflect.ValueOf(&quot;lii&quot;),reflect.ValueOf(&quot;nihao&quot;),reflect.ValueOf(5)})</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>,<span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">length</span> <span style="color:#66d9ef">int</span>) {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">name</span>,<span style="color:#e6db74">&#34;写了&#34;</span>,<span style="color:#a6e22e">msg</span>,<span style="color:#e6db74">&#34;一共&#34;</span>,<span style="color:#a6e22e">length</span>)
+}
+</code></pre></div><h2 id="rpc">RPC</h2>
+<h3 id="grpc">gRPC</h3>
+<h2 id="protobuf">Protobuf</h2>
+<p>fallthrough   在switch 语句中进行穿透，链接两个case</p>
+<p>函数：</p>
+<p>当参数类型一致时，前一个参数可以省略类型</p>
+<p>函数参数中如果有可变参数，可变参数放到最后，参数列表中只能有一个可变参数</p>
+<p>函数返回值</p>
+<p>指针</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/notes/SSL/">SSL</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/notes/Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/">Go插件工具安装问题</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/notes/%E8%87%AA%E5%BB%BACA%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81/">自建CA证书认证</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/post/Kubernetes%E5%AE%89%E8%A3%85/">Kubernetes安装</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/post/Docekr%E5%AE%89%E8%A3%85/">Docekr安装</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://github.com/BuLianWei/bulianwei.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://github.com/BuLianWei/bulianwei.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Kubernetes%E5%AE%89%E8%A3%85/" title="Kubernetes安装">Kubernetes安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Docekr%E5%AE%89%E8%A3%85/" title="Docekr安装">Docekr安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Trouble/" title="Trouble">Trouble</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Flink/" title="Flink">Flink</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="这里是广告位" target="_blank" style="color:red">
+                
+                    这里是广告位
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://github.com/BuLianWei/bulianwei.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://github.com/BuLianWei/bulianwei.github.io">Abiu的博客 By Abiu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/BuLianWei/bulianwei.github.io/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/BuLianWei/bulianwei.github.io/js/douban.js'></script>
+
+</body>
+
+</html>

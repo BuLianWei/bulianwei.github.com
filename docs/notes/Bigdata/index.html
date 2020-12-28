@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>BigData | Abiu的博客</title>
+    <meta property="og:title" content="BigData - Abiu的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="BigData">
+        
+    <meta name="author" content="Abiu">
+    <meta property="og:url" content="https://github.com/BuLianWei/bulianwei.github.io/notes/Bigdata/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/normalize.css'>
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4031353640611810",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/douban.css'>
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://github.com/BuLianWei/bulianwei.github.io">
+                        Abiu的博客
+                    </a>
+                
+                
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://github.com/BuLianWei/bulianwei.github.io">首页</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io/notes/" title="笔记">笔记</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io/post/" title="归档">归档</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">BigData</h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="bigdata">Bigdata</h1>
+<h2 id="1-hadoop">1. Hadoop</h2>
+<pre><code>1.hdfs集群：负责文件读写
+2.yarn集群：负责为mapredece程序分配运算硬件资源
+Hadoop配置：
+1.core-site.xml：fs.DefaultFS	hadoop.tmp.dir
+2.hadoop.env.sh:  JAVA_HOME
+3.mapred-site.xml:  mapreduce.framework.name
+4.hdfs-site.xml:  dfs.replication
+5.yarn-site.xml:   yarn.resourcemanager.hostname  yarn.nodemanager.aux-services    
+slaves：自动化脚本使用的配置文件
+修改Linux启动等待时间  vi /etc/fstab
+mkdir -p  /aa/bb/cc      可以直接建立aa下的bb下的cc  创建层级文件
+挂载光驱：mount -t iso9660 -o ro	 /dev/cdrom  /mnt/cdrom 
+设置光驱开机挂载：vi /etc/fstab	增加 /dev/cdrom	/mnt/cdrom	iso9660	defaults	0 0
+rename	文件重命名	
+与mv的区别
+mv 支持单个文件重命名
+rename 支持多个文件重命名
+cp /aa/*  /bb	复制aa下的所有文件到bb下面
+hadoop  fs -put  filename / 		上传文件
+hadoop  fs  -get   filename		下载文件
+hadoop 副本数由客户端决定（conf.set 》自定义配置文件》jar包中的配置）
+namenode和datanode两个的工作目录不能在同一个文件夹下，否则会启动不起来。
+eclipse 本地运行代码时遇到调用远程路径权限不够时，在eclipse客户端运行配置时添加VM arguments参数使用hadoop用户运行，参数为“	-DHADOOP_USER_NAME=hadoop	”
+mr程序：
+configuration参数设置：
+conf.set（”mapreduce.framework.name&quot;,&quot;local&quot;）#是否为本地运行模式，默认为local本地模式
+conf.set(&quot;fs.defaultFS&quot;,&quot;file:///&quot;)	#输入输出数据的文件路径，默认为file
+conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs://hadoop01:9000/&quot;) #输入输出文件路径
+本地运行模式文件可以用file也可以用hdfs
+设置在yarn上运行程序（要想设置在集群上运行程序 一下三个参数必须设置）
+conf.set（“mapreduce.framework.name”,&quot;yarn&quot;）#设置运行模式为在集群上运行
+conf.set(&quot;yarn.resourcename.hostname&quot;,&quot;hadoop01&quot;)	#设置yarn的管理者resourcename在那一台机器上
+conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs://hadoop01:9000/&quot;) #程序在设置在yarn上运行时必须设置文件存储为hdfs
+程序里面systemout的日子存在于hadoop里面的logs的userlogs里面对应job_id下的container里的syslog里面
+namenode在刚启动时只包含block的数量和blockid不知道块所在datanode，要等待datanode向他汇报后才会在namenode元数据中补全文件块的位置信息，只有在namenode找到999.8%的块的位置信息才会退出安全模式正常对外提供服务。
+</code></pre><p><img src="Bigdata.assets/mapreduce&amp;yarn%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6----%E5%90%B8%E6%98%9F%E5%A4%A7%E6%B3%95-5821159.png" alt="mapreduce&yarn的工作机制&mdash;-吸星大法"></p>
+<p><img src="Bigdata.assets/mapreduce%E5%8E%9F%E7%90%86%E5%85%A8%E5%89%96%E6%9E%90--%E6%AE%B5%E6%B0%8F%E5%85%AD%E8%84%89%E7%A5%9E%E5%89%91.png" alt="mapreduce原理全剖析&ndash;段氏六脉神剑"></p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/notes/SSL/">SSL</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/notes/Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/">Go插件工具安装问题</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/notes/%E8%87%AA%E5%BB%BACA%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81/">自建CA证书认证</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/post/Kubernetes%E5%AE%89%E8%A3%85/">Kubernetes安装</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/post/Docekr%E5%AE%89%E8%A3%85/">Docekr安装</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://github.com/BuLianWei/bulianwei.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://github.com/BuLianWei/bulianwei.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Kubernetes%E5%AE%89%E8%A3%85/" title="Kubernetes安装">Kubernetes安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Docekr%E5%AE%89%E8%A3%85/" title="Docekr安装">Docekr安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Trouble/" title="Trouble">Trouble</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Flink/" title="Flink">Flink</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="这里是广告位" target="_blank" style="color:red">
+                
+                    这里是广告位
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://github.com/BuLianWei/bulianwei.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://github.com/BuLianWei/bulianwei.github.io">Abiu的博客 By Abiu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/BuLianWei/bulianwei.github.io/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/BuLianWei/bulianwei.github.io/js/douban.js'></script>
+
+</body>
+
+</html>

@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hive | Abiu的博客</title>
+    <meta property="og:title" content="Hive - Abiu的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Hive">
+        
+    <meta name="author" content="Abiu">
+    <meta property="og:url" content="https://github.com/BuLianWei/bulianwei.github.io/notes/Hive/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/normalize.css'>
+    <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/style.css'>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4031353640611810",
+        enable_page_level_ads: true
+    });
+    </script>
+    
+
+
+    
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/douban.css'>
+    
+        <link rel="stylesheet" href='/BuLianWei/bulianwei.github.io/css/other.css'>
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://github.com/BuLianWei/bulianwei.github.io">
+                        Abiu的博客
+                    </a>
+                
+                
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://github.com/BuLianWei/bulianwei.github.io">首页</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io/notes/" title="笔记">笔记</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io/post/" title="归档">归档</a>
+                    
+                    <a  href="https://github.com/BuLianWei/bulianwei.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">Hive</h1>
+        </header>
+        <date class="post-meta meta-date">
+            1年1月1日
+        </date>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <ol>
+<li>
+<p>表的数据加载</p>
+<ol>
+<li>insert</li>
+<li>load</li>
+</ol>
+</li>
+<li>
+<p>创建分区表（外表）</p>
+</li>
+<li>
+<p>数据导出</p>
+<ol>
+<li>
+<p>hdfs dfs -get filename</p>
+</li>
+<li>
+<p>hdfs dfs -text filename    //查看</p>
+<ol>
+<li>
+<p>insert overwrite 【local】 directory &lsquo;filename&rsquo;</p>
+<p>【row format delimited fields terminated by &lsquo;\t&rsquo;】</p>
+<p>select col， col1 from tablename</p>
+<p>//local 与 row。。 只能在导出到本地时使用</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Shell 命令加管道：hive -f/e | sed/awk/gred &gt;filename</p>
+</li>
+<li>
+<p>sqoop</p>
+</li>
+<li>
+<p>动态分区</p>
+<ol>
+<li>设置 set hive.exec.dynamic.partition=true //设置使用动态分区</li>
+<li>设置 set hive.exec.dynamic.partition.mode=nonstrict //使用无限制模式</li>
+<li>insert into table tablename partition(dt) select col,col1 as dt from tablename  //一个分区 动态设置</li>
+<li>Insert into table tablename partition(dt='2017&rsquo;,value) select col,col1 as value from tablename //两个分区 ，静态分区必须在设置的动态分区前面</li>
+</ol>
+</li>
+<li>
+<p>修改表</p>
+<ol>
+<li>
+<p>重命名表 alter table tablename rename to newtablename;</p>
+</li>
+<li>
+<p>修改列名 alter table tablename change column c1 c2 int comment &lsquo;xxx&rsquo;;</p>
+</li>
+<li>
+<p>移动列的位置 alter table  tablename change column c1 c2 after c3;</p>
+</li>
+<li>
+<p>增加列 alter table tablename add columns(c1 string comment &lsquo;xxx&rsquo;,c2 int);</p>
+</li>
+<li>
+<p>删除列 alter table tablename replace columns(col string,col1 int)</p>
+<p>//col col1 都是保留下来的列</p>
+</li>
+<li>
+<p>修改分割符 alter table tablename【partition(dt='xxxx&rsquo;)】 set serdeproperties(&lsquo;field.delim'=&rsquo;\t&rsquo;)</p>
+</li>
+<li>
+<p>修改location;</p>
+<p>alter table tablename 【partition()】set location &lsquo;path&rsquo;</p>
+</li>
+<li>
+<p>内部表改外部表</p>
+<p>alter table tablename set tblproperties(&lsquo;EXTERNAL'='TRUE&rsquo;)</p>
+<p>//外部表改内部表 EXTERNAL=FALSE；</p>
+</li>
+</ol>
+</li>
+<li>
+<p>group by：</p>
+<p>select col1,col2 from tablename group by col1,col2</p>
+<p>//查询的列 col1，col2 必须出现在group by后面；</p>
+</li>
+<li>
+<p>sum(col)  //col可为int，double 等数字类型也可以为string类型</p>
+</li>
+<li>
+<p>在hive中使用python脚本</p>
+<p>add file filenamepath //先将脚本缓存到hive集群上</p>
+<p>select * from ( select transform (col,col1) using &lsquo;filename&rsquo; 【as coll ,coll2】from tablename  ) tablename</p>
+</li>
+<li>
+<p>【inner】join，left 【outer】 join，right 【outer】 join, full 【outer】 join，</p>
+</li>
+</ol>
+<p>/* +mapjoin(tablename) */,left semi join 相当于in</p>
+<ol start="11">
+<li>
+<p>函数</p>
+<ol>
+<li>nvl(col,0) //如果col非空则显示col否则显示0</li>
+<li>【nvl2(col1,col2,col3) //如果col1为空则显示col2否则显示col3】</li>
+<li>【nullif(col1,col2) //如果col1与col2相等则返回null否则返回col1】</li>
+<li>coalesce(col1,col2,col3….) //返回第一个非空（null）值，如果都为空则返回null</li>
+<li>concat(col1,col2….) //字符串拼接，如果col1或col2中有一个为null则返回null</li>
+<li>concat_ws(',',col1,col2…..) //带有分隔符的字符串拼接，如果有col2为null则不会拼接，拼接的内容可以为array</li>
+<li>cast(1 as bigint) //转化1为bigint</li>
+<li>round(0.0089,4) //保留4位小数</li>
+<li>if (condition,a,b) //若condition为真则返回a，否则返回b；</li>
+<li>explode(array(or map)) //将输入的一行数组或map转换成列输出</li>
+<li>split(str,',') //第一个参数是要分隔的字符串，第二个参数是分隔符，分隔后的数据可看成数组</li>
+</ol>
+</li>
+<li>
+<p>distribute by 打散数据 长和sort by（使每一个reduce里面的数据都有序）连用。distribute by 与group by 都是安key对数据进行划分，都使用reduce操作，但是distribute by只是将数据分散，而group by 是把相同的key聚集到一起然后进行聚合操作。sort by与order by，order by 是全局排序，只会有一个reduce ，sort by是确保每一个reduce 上的数据都是有序的，如果只有一个reduce时，sort by 和order by作用是一样的。</p>
+</li>
+<li>
+<p>cluster by</p>
+</li>
+<li>
+<p>unoin all</p>
+</li>
+<li>
+<p>自定义UDF：</p>
+<p>重写evaluate函数</p>
+</li>
+<li>
+<p>优化：</p>
+<ol>
+<li>
+<p>join优化</p>
+<p>hive.optimize.skewjoin=true</p>
+<p>hive.skewjoin.key=n //当key的数量到达n时会主动进行优化</p>
+</li>
+<li>
+<p>mapjoin</p>
+<p>hive.atuo.conwert.join=true</p>
+<p>hive.mapjoin.smalltable.filesize=n</p>
+<p>select /*+mapjoin(a) */,col1,col2 form a join b</p>
+<p>注：a表要非常小，mapjoin因为是在map端操作可以进行不等值操作</p>
+</li>
+<li>
+<p>group by</p>
+<p>hive.groupby.skewindata=true</p>
+<p>Hive.groupby.mapaggr.checkinterval=n</p>
+</li>
+<li>
+<p>job</p>
+<p>hive.exec.parallel=true. //设置job的并行化</p>
+<p>hive.exec.parallel.thread.numbe=n //设置最大线程数</p>
+<p>hive.input.format=org.apache.hadoop.hive.ql.io.CombineHiveInputFormat //合并文件，文件受mapred.max.split.size大小的限制</p>
+<p>Hive.merge.smallfiles.avgsize=n  //设置输出文件平均大小小于改值，启动job合并文件</p>
+<p>Hive.merge.size.per.task=n //合并之后文件的大小</p>
+</li>
+<li></li>
+<li></li>
+</ol>
+</li>
+<li>
+<p>yarn queue -status mt1</p>
+</li>
+<li>
+<p>mapred【hadoop】 queue -list</p>
+</li>
+<li></li>
+<li></li>
+<li>
+<p>命令：</p>
+<ol>
+<li>mapred[hadoop] job -list | grep o2o4 //查job</li>
+<li>ps -ef| grep xxxx.sh | grep -v grep // 查进程</li>
+<li>mapred[hadoop] queue -list // 查队列（所有）</li>
+<li>yarn queue -status o2o4  //查队列（单个）</li>
+<li>du -h //查文件大小</li>
+<li>sed -n &lsquo;s/old/new/gp&rsquo; filename //-n  代表行   g 全局 p 打印</li>
+<li>使用”;”时，不管command1是否执行成功都会执行command2； 使用”&amp;&amp;”时，只有command1执行成功后，command2才会执行，否则command2不执行；使用”||”时，command1执行成功后command2 不执行，否则去执行command2，总之command1和command2总有一条命令会执行。</li>
+<li></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>
+<p>hive 分区下有数据但是查询表没有数据</p>
+<p>可以是表的读入设置了压缩等其他格式，单纯txt的文件，表无法读取</p>
+<p>STORED AS INPUTFORMAT
+&lsquo;com.hadoop.mapred.DeprecatedLzoTextInputFormat&rsquo;   //设置压缩为lzo 所以只能读取lzo数据</p>
+</li>
+<li>
+<p>Hive count(distinct ) 优化</p>
+<p>可以先进行group by  然后再进行count</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">count</span>(<span style="color:#f92672">*</span>),<span style="color:#66d9ef">count</span>(<span style="color:#66d9ef">distinct</span> col) <span style="color:#66d9ef">from</span> tablename <span style="color:#66d9ef">where</span> day_id<span style="color:#f92672">=</span><span style="color:#ae81ff">20180708</span>
+</code></pre></div><p>select max(cnt), max(mdn_cnt), max(day_id) from (select null  as cnt , count(<em>) as mdn_cnt , day_id  as day_id from (select mdn, day_id from dwi_m.dwi_res_regn_mergelocation_msk_d where day_id=20180708 group by mdn,day_id )a group by  day_id union all select count(</em>) as cnt, null  as mdn_cnt , day_id as day_id from dwi_m.dwi_res_regn_mergelocation_msk_d where day_id=20180708 group by day_id )b;//union all</p>
+<p>select b.cnt,a.mdn_cnt ,a.day_id from (
+select count(<em>) as mdn_cnt ,day_id from (select mdn,day_id from dwi_m.dwi_res_regn_mergelocation_msk_d where day_id=20180708 group by mdn,day_id)a1 group by day_id)a
+left join
+(select count(</em>) as cnt, day_id from dwi_m.dwi_res_regn_mergelocation_msk_d  b where day_id=20180708 group by day_id)b
+on a.day_id=b.day_id;//join</p>
+<p>join 和 union all 用的时间差不多  但相对 直接count distinct 要 少很多</p>
+</li>
+</ul>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/notes/SSL/">SSL</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/notes/Go%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/">Go插件工具安装问题</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/notes/%E8%87%AA%E5%BB%BACA%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81/">自建CA证书认证</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/post/Kubernetes%E5%AE%89%E8%A3%85/">Kubernetes安装</a></li>
+        
+        <li><a href="/BuLianWei/bulianwei.github.io/post/Docekr%E5%AE%89%E8%A3%85/">Docekr安装</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://github.com/BuLianWei/bulianwei.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://github.com/BuLianWei/bulianwei.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Kubernetes%E5%AE%89%E8%A3%85/" title="Kubernetes安装">Kubernetes安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Docekr%E5%AE%89%E8%A3%85/" title="Docekr安装">Docekr安装</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Trouble/" title="Trouble">Trouble</a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/BuLianWei/bulianwei.github.io/post/Flink/" title="Flink">Flink</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="" title="这里是广告位" target="_blank" style="color:red">
+                
+                    这里是广告位
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="" title=""></a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://github.com/BuLianWei/bulianwei.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://github.com/BuLianWei/bulianwei.github.io">Abiu的博客 By Abiu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/flysnow-org/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/BuLianWei/bulianwei.github.io/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/BuLianWei/bulianwei.github.io/js/douban.js'></script>
+
+</body>
+
+</html>
