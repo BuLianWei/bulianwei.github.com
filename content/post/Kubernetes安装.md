@@ -5,9 +5,49 @@ draft: false
 ---
 
 ## Kubernetes 安装
-本次安装环境 Centos 7 
+本次安装环境 Centos 7 ，[直接到安装脚本](#安装脚本)
 本次使用阿里镜像源
 `https://developer.aliyun.com/mirror`
+
+> 注意：如果使用虚拟机安装时，一定记得不要使用复制的虚拟机，复制的虚拟机 mac 地址可能是相同的，这会导致 kubernetes 的 pod 网络不能相互访问
+### 环境准备
+安装的系统要进行一些安装前准备工作
+- 关闭防火墙
+```shell
+systemctl stop firewalld //关闭防火墙
+systemctl disable firewalld //关闭开机自启
+```
+- 关闭selinux
+```shell
+vi /etc/selinux/config
+SELINUX=disabled
+setenforce 0 //设置本次关闭
+getenforce //检查是否设置
+```
+- 设置免密登录
+```shell
+ssh-keygen -t rsa //初始化公钥
+ssh-copy-id root@xxx.xxx.xxx.xxx  //将本地公钥复制到其他机器的免密配置文件
+```
+- 设置时间同步
+```shell
+yum  install chrony -y 
+
+vi /etc/chrony.conf
+
+填入以下时间服务器地址，将其它无效的时间服务器移除
+注：以下时间服务器地址需要链接外网支持，如果是内网环境，可以换成内
+网时间服务器域名或 IP
+server 0.centos.pool.ntp.org iburst
+server 1.centos.pool.ntp.org iburst
+server 2.centos.pool.ntp.org iburst
+server 3.centos.pool.ntp.org iburst
+
+systemctl  start  chronyd //开启服务
+systemctl enable chronyd //开启开机自启
+
+chronyc  soucestats -v //检查配置是否正确
+```
 ### 准备 Yum repo 镜像库（master，node）
 从阿里镜像源找到 kubernetes 
 从目录里面找到 yum repo 地址
@@ -16,6 +56,7 @@ draft: false
 `https://mirrors.aliyun.com/kubernetes/yum/doc/`
 右键复制`https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg`和`https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg`地址作为 gpgkey 的验证地址 
 以下是已经准备好的命令直接复制到服务器粘贴即可
+
 ```shell
 cat > /etc/yum.repos.d/Kubernetes.repo <<EOF
 [kubernetes]
@@ -187,12 +228,62 @@ kubeadm join 192.168.56.106:6443 --token gr0k68.q8g7cezvkbk8n0wr \
     --discovery-token-ca-cert-hash sha256:63bb33710ba6d9387cd4c8537c40aa8a19d1d116a051af0d4508a3735504f866
 ```
 
+### 安装脚本
+master，node 脚本
+```shell
+systemctl stop firewalld 
+systemctl disable firewalld 
+
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+
+curl -o /etc/yum.repos.d/docker-ce.repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum install -y docker-ce
+#echo "ExecStartPost=/usr/sbin/iptables -P FORWARD ACCEPT" >>/usr/lib/systemd/system/docker.service  
+sed -i '/ExecStar/i\ExecStartPost=/usr/sbin/iptables -P FORWARD ACCEPT'  /usr/lib/systemd/system/docker.service
+
+systemctl daemon-reload
+systemctl start docker
+systemctl enable docker
 
 
+cat > /etc/yum.repos.d/Kubernetes.repo <<EOF
+[kubernetes]
+name=Kubernetes Repository
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
+gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg 
+	https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+EOF
 
+yum install -y kubeadm kubectl kubelet
 
+cat > /etc/sysconfig/kubelet <<EOF
+KUBELET_EXTRA_ARGS="--fail-swap-on=false"
+EOF
 
+images=`kubeadm config images list`
+images=(${images//k8s.gcr.io\// })
 
+for imageName in ${images[@]} ; do
+    docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/$imageName
+    docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/$imageName k8s.gcr.io/$imageName
+    docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/$imageName
+done
 
+systemctl enable kubelet
+```
+master 脚本
+```shell
+ip=`ip a|grep enp0s3 | grep -Po '(?<=inet ).*(?=\/)' |grep -v 127.0.0.1`
+echo $ip
+kubeadm init  --pod-network-cidr="10.244.0.0/16" --ignore-preflight-errors=Swap --apiserver-advertise-address="$ip" 
+
+  mkdir -p $HOME/.kube
+  cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+
+echo "199.232.96.133 raw.githubusercontent.com" >> /etc/hosts
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+```
 
 

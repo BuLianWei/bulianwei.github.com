@@ -10,6 +10,7 @@ draft: false
 本次使用阿里镜像源安装
 阿里镜像地址
 `https://developer.aliyun.com/mirror/`
+
 ### 准备环境
 - 查找 docker-ce repo 库
 在目录`https://mirrors.aliyun.com/docker-ce/linux/centos/`下找到**docker-ce.repo** 右键复制地址链接
@@ -108,3 +109,4 @@ EOF
 ```shell
 sysctl -p /etc/sysctl.d/k8s.conf
 ```
+

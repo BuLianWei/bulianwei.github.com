@@ -1853,32 +1853,38 @@ coGroup 会将两个流的所有相等不相等的数据都可以输出，可以
 ```
 
 ## 分区策略
-### GlobalPartitioner
-
-### ShufflePartitioner
-
-### RebalancePartitioner
-
-### RescalePartitioner
-
-### BroadcastPartitioner
 
 ### ForwardPartitioner
+数据从一个算子一对一的转换到下游另一个算子，同机器无网络传送,同一个OperationChain中上下游算子之间的数据转发
 
-### KeyGroupStreamPartitioner
-
-### CustomPartitionerWrapper
-
-## 数据转换策略
-### forward（转发）
-数据从一个算子一对一的转换到下游另一个算子，同机器无网络传送
-### broadcast（广播）
-数据复制一份从上一个算子发送到下游每一个算子
-### key-based（基于键值）
-根据key将数据按照key发送到下游算子
-### random（随机）
+### ShufflePartitioner
+随机分区
+```shel
+dataStream.shuffle()
+```
+### RebalancePartitioner
 数据均匀分配至下游算子
-
+```shell
+dataStream.rebalence()
+```
+### RescalingPartitioner
+根据下游算子数量，上游算子被分配固定数量的下游算子，上游算子使用Round-robin的方式将数据均匀分配到下游算子，上游算子不会将数据分配到其他不属于它的下游算子
+```shell
+dataStream.rescale()
+```
+### BroadcastPartitioner
+数据复制一份从上一个算子发送到下游每一个算子
+```shell
+dataStream.broadcast()
+```
+### KeyGroupStreamPartitioner
+根据KeyGroup素银编号进行分区，该分区器不支持用户使用，是系统层面上的
+### CustomPartitionerWrapper
+用户自定义分区器
+```shell
+datastream.partitionCustom(partitioner,"name")
+datastream.partitionCustom(partitioner,0)
+```
 ## 组件
 ### JobManager
 ### ResourceManager
@@ -1993,7 +1999,7 @@ keyedstate：在一个subtask中可能有多个state，一个组对应一个key�
 
 开启检查点机制
 
-```
+```java
 // start a checkpoint every 1000 ms
 env.enableCheckpointing(1000);
 
